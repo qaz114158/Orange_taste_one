@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">FashionChainWallet</string>
+
+    <string name="st_text1">新闻</string>
+    <string name="st_text2">论坛</string>
+    <string name="st_text3">发表</string>
+    <string name="st_text4">服务</string>
+    <string name="st_text5">我的</string>
+</resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="c_title_bg">#ffffffff</color>
+
+    <color name="ripple_color">#cccbcc</color>
+    <color name="ripple_color_default">#ffffffff</color>
+
+    <color name="black">#000000</color>
+    <color name="yellow">#ffff00</color>
+    <color name="none">#00000000</color>
+    <color name="list_divider">#cccbcc</color>
+    <color name="tab_bar_app_bg">#ffffffff</color>
+    <color name="tv_main_color">#4c4948</color>
+    <color name="tv_main_color_selected">#303F9F</color>
+
+
+    <color name="c_text_title1">#212121</color>
+
+    <color name="c_text_title3">#585858</color>
+    <color name="c_text_title4">#ff4777</color>
+
+    <color name="c_text_input2">#949494</color>
+    <color name="c_text_input3">#A1A1A1</color>
+
+    <color name="list_divider1">#E7E7E7</color>
+    <color name="list_divider2">#A9A9A9</color>
+    <color name="c_text_title">#4c4948</color>
+    <color name="c_text_input">#898989</color>
+    <color name="c_text_tab">#212121</color>
+    <color name="white">#ffffffff</color>
+
+    <color name="bg_base">#ffffffff</color>
+    <color name="c_slide_background">#99000000</color>
+    <color name="c_background_me">#0D0D0D</color>
+
+    <color name="c_boder1">#bfbfbf</color>
+
+
+    <color name="c_golden1">#ae875e</color>
+    <color name="c_gray1">#cecece</color>
+
+    <color name="default_blue_color">#ca0012</color>
+    <color name="default_light_grey_color">#666666</color>
+
+    <color name="c_transparent">#00000000</color>
+
+    <color name="c_color_red1">#ca0012</color>
+    <color name="c_text1">#666666</color>
+    <color name="c_text2">#333333</color>
+    <color name="c_text3">#999999</color>
+    <color name="c_text4">#b12026</color>
+    <color name="c_text5">#FFCBC5</color>
+
+
+    <color name="c_background1">#fafafa</color>
+
+    <color name="c_divider">#eeeeee</color>
+    <color name="c_text6">#3A7ADA</color>
+
+
+
+</resources>

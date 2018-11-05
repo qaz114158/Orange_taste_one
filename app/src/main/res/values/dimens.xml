@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="d_title_bar_height">44dp</dimen>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="show_btn_radius">0dp</dimen>
+
+
+    <dimen name="d_recycle_margin_1">4dp</dimen>
+    <dimen name="d_actionbar_size">48dp</dimen>
+
+    <dimen name="refresh_header_height_twitter">80dp</dimen>
+    <dimen name="load_more_footer_height_twitter">60dp</dimen>
+
+    <dimen name="load_more_footer_height_classic">60dp</dimen>
+
+    <dimen name="d_margin_1">8dp</dimen>
+    <dimen name="d_height1">38dp</dimen>
+
+    <dimen name="d_width_1">300dp</dimen>
+    <dimen name="d_margin_2">144dp</dimen>
+    <dimen name="d_margin_3">10dp</dimen>
+</resources>
