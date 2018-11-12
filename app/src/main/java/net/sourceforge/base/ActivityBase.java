@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.chain.wallet.fashion.R;
+import com.chain.wallet.spd.R;
 
 import net.sourceforge.UI.view.WheelDialog;
 import net.sourceforge.commons.log.SWLog;
@@ -58,7 +58,7 @@ public class ActivityBase extends AppCompatActivity {
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
         initTitleBar();
-        StatusBarUtil.setStatuBarAndFontColor(this, getResources().getColor(R.color.white), true);
+        StatusBarUtil.setStatuBarAndFontColor(this, getResources().getColor(R.color.colorPrimary), false);
     }
 
     private void initTitleBar() {

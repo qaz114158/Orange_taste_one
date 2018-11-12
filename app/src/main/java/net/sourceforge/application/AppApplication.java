@@ -3,7 +3,7 @@ package net.sourceforge.application;
 import android.app.Application;
 import android.content.Context;
 
-import com.chain.wallet.fashion.R;
+import com.chain.wallet.spd.R;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;

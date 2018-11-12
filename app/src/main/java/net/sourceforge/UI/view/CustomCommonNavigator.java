@@ -8,7 +8,7 @@ import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
-import com.chain.wallet.fashion.R;
+import com.chain.wallet.spd.R;
 
 import net.lucode.hackware.magicindicator.NavigatorHelper;
 import net.lucode.hackware.magicindicator.abs.IPagerNavigator;

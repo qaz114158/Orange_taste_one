@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.chain.wallet.fashion.R;
+import com.chain.wallet.spd.R;
 
 import net.sourceforge.UI.activity.ActivityMain;
 

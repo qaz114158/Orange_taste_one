@@ -6,23 +6,20 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 
-import com.chain.wallet.fashion.R;
+import com.chain.wallet.spd.R;
 
 import net.sourceforge.UI.view.NaviTabButton;
 import net.sourceforge.application.AppApplication;
 import net.sourceforge.base.ActivityBase;
-import net.sourceforge.external.aspect.UserAuth;
 import net.sourceforge.external.eventbus.events.EventAction;
 import net.sourceforge.utils.DMG;
 import net.sourceforge.utils.PreferenceHelper;
-import net.sourceforge.utils.StatusBarUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
 
@@ -51,11 +48,11 @@ public class ActivityMain extends ActivityBase {
 
     private void initFragment() {
         currentFragmentIndex = 0;
-        mFragments = new Fragment[4];
+        mFragments = new Fragment[3];
         mFragments[0] = getSupportFragmentManager().findFragmentById(R.id.fragment_1);
         mFragments[1] = getSupportFragmentManager().findFragmentById(R.id.fragment_2);
         mFragments[2] = getSupportFragmentManager().findFragmentById(R.id.fragment_3);
-        mFragments[3] = getSupportFragmentManager().findFragmentById(R.id.fragment_4);
+//        mFragments[3] = getSupportFragmentManager().findFragmentById(R.id.fragment_4);
 //        mFragments[4] = getSupportFragmentManager().findFragmentById(R.id.fragment_5);
     }
 
@@ -65,7 +62,7 @@ public class ActivityMain extends ActivityBase {
         mTabButtons[0] =  findViewById(R.id.tabbutton_1);
         mTabButtons[1] =  findViewById(R.id.tabbutton_2);
         mTabButtons[2] =  findViewById(R.id.tabbutton_3);
-        mTabButtons[3] =  findViewById(R.id.tabbutton_4);
+//        mTabButtons[3] =  findViewById(R.id.tabbutton_4);
 //        mTabButtons[4] =  findViewById(R.id.tabbutton_5);
 
         mTabButtons[0].setTitle(getString(R.string.st_text1));
@@ -83,25 +80,25 @@ public class ActivityMain extends ActivityBase {
 //        mTabButtons[2].setSelectedImage(getResources().getDrawable(R.drawable.icon_tab_ser_sel));
 //        mTabButtons[2].setUnselectedImage(getResources().getDrawable(R.drawable.tt_tab_internal_nor));
 
-        mTabButtons[2].setTitle(getString(R.string.st_text4));
+        mTabButtons[2].setTitle(getString(R.string.st_text3));
         mTabButtons[2].setIndex(2);
         mTabButtons[2].setSelectedImage(getResources().getDrawable(R.drawable.icon_tab_ser_sel));
         mTabButtons[2].setUnselectedImage(getResources().getDrawable(R.drawable.icon_tab_ser));
 
-        mTabButtons[3].setTitle(getString(R.string.st_text5));
-        mTabButtons[3].setIndex(3);
-        mTabButtons[3].setSelectedImage(getResources().getDrawable(R.drawable.icon_tab_my_sel));
-        mTabButtons[3].setUnselectedImage(getResources().getDrawable(R.drawable.icon_tab_my));
+//        mTabButtons[3].setTitle(getString(R.string.st_text5));
+//        mTabButtons[3].setIndex(3);
+//        mTabButtons[3].setSelectedImage(getResources().getDrawable(R.drawable.icon_tab_my_sel));
+//        mTabButtons[3].setUnselectedImage(getResources().getDrawable(R.drawable.icon_tab_my));
     }
 
     public void setFragmentIndicator(int which) {
         currentFragmentIndex = which;
-        getSupportFragmentManager().beginTransaction().hide(mFragments[0]).hide(mFragments[1]).hide(mFragments[2]).hide(mFragments[3]).show(mFragments[which]).commitAllowingStateLoss();
+        getSupportFragmentManager().beginTransaction().hide(mFragments[0]).hide(mFragments[1]).hide(mFragments[2]).show(mFragments[which]).commitAllowingStateLoss();
 
         mTabButtons[0].setSelectedButton(false);
         mTabButtons[1].setSelectedButton(false);
         mTabButtons[2].setSelectedButton(false);
-        mTabButtons[3].setSelectedButton(false);
+//        mTabButtons[3].setSelectedButton(false);
 //        mTabButtons[4].setSelectedButton(false);
 
         mTabButtons[which].setSelectedButton(true);

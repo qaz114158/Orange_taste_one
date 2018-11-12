@@ -18,7 +18,7 @@ import android.view.animation.Animation;
 import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
 
-import com.chain.wallet.fashion.R;
+import com.chain.wallet.spd.R;
 
 
 /**

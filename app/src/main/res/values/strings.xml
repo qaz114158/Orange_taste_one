@@ -1,9 +1,7 @@
 <resources>
-    <string name="app_name">FashionChainWallet</string>
+    <string name="app_name">SPDWallet</string>
 
-    <string name="st_text1">新闻</string>
-    <string name="st_text2">论坛</string>
-    <string name="st_text3">发表</string>
-    <string name="st_text4">服务</string>
-    <string name="st_text5">我的</string>
+    <string name="st_text1">钱包</string>
+    <string name="st_text2">交易</string>
+    <string name="st_text3">我的</string>
 </resources>

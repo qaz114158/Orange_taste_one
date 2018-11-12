@@ -11,7 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.chain.wallet.fashion.R;
+import com.chain.wallet.spd.R;
 
 
 public class WheelDialog extends Dialog {

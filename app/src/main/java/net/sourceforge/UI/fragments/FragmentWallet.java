@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import com.chain.wallet.spd.R;
 
 import net.sourceforge.base.FragmentBase;
@@ -20,9 +19,9 @@ import butterknife.Unbinder;
  * Created by terry.c on 06/03/2018.
  */
 
-public class FragmentSample extends FragmentBase {
+public class FragmentWallet extends FragmentBase {
 
-    public static final String TAG = FragmentSample.class.getSimpleName();
+    public static final String TAG = FragmentWallet.class.getSimpleName();
 
     private View curView = null;
 
@@ -36,7 +35,7 @@ public class FragmentSample extends FragmentBase {
             ((ViewGroup) curView.getParent()).removeView(curView);
             return curView;
         }
-        curView = inflater.inflate(R.layout.layout_sample, null);
+        curView = inflater.inflate(R.layout.layout_wallet, null);
         unbinder = ButterKnife.bind(this, curView);
         return curView;
     }

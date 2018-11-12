@@ -1,4 +1,4 @@
-package com.chain.wallet.fashion;
+package com.chain.wallet.spd;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

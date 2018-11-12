@@ -1,4 +1,4 @@
-package com.chain.wallet.fashion;
+package com.chain.wallet.spd;
 
 import org.junit.Test;
 

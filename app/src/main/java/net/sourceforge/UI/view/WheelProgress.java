@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.LinearInterpolator;
 
-import com.chain.wallet.fashion.R;
+import com.chain.wallet.spd.R;
 
 
 /**

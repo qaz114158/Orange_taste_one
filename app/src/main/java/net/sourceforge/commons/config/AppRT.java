@@ -1,7 +1,7 @@
 package net.sourceforge.commons.config;
 
 
-import com.chain.wallet.fashion.BuildConfig;
+import com.chain.wallet.spd.BuildConfig;
 
 /**
  * Created by terry on 7/11/16.

@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 
-import com.chain.wallet.fashion.R;
+import com.chain.wallet.spd.R;
 
 import net.sourceforge.base.ActivityBase;
 import net.sourceforge.commons.log.SWLog;

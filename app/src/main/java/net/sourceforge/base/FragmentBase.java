@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 
-import com.chain.wallet.fashion.R;
+import com.chain.wallet.spd.R;
 
 import net.sourceforge.UI.view.WheelDialog;
 
