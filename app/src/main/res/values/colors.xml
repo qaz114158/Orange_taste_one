@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="c_statu_bg">#292a2a</color>
     <color name="c_title_bg">#ffffffff</color>
 
     <color name="ripple_color">#cccbcc</color>
@@ -33,7 +34,7 @@
     <color name="c_text_tab">#212121</color>
     <color name="white">#ffffffff</color>
 
-    <color name="bg_base">#ffffffff</color>
+    <color name="bg_base">#292a2a</color>
     <color name="c_slide_background">#99000000</color>
     <color name="c_background_me">#0D0D0D</color>
 
@@ -43,8 +44,8 @@
     <color name="c_golden1">#ae875e</color>
     <color name="c_gray1">#cecece</color>
 
-    <color name="default_blue_color">#ca0012</color>
-    <color name="default_light_grey_color">#666666</color>
+    <color name="default_blue_color">#e1b631</color>
+    <color name="default_light_grey_color">#bfbfbf</color>
 
     <color name="c_transparent">#00000000</color>
 

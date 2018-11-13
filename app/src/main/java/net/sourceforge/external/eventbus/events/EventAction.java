@@ -71,6 +71,10 @@ public class EventAction {
 
 		public static final String KEY_USER_CANCEL_ATTENTION_FORUM = "KEY_USER_CANCEL_ATTENTION_FORUM";
 
+		public static final String KEY_WALLET_CREATE_SUCESS = "KEY_WALLET_CREATE_SUCESS";
+
+		public static final String KEY_WALLET_IMPORT_SUCESS = "KEY_WALLET_IMPORT_SUCESS";
+
 		public EventKey() {
 		}
 	}

@@ -1,18 +1,25 @@
 package net.sourceforge.manager;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+
+import com.chain.wallet.spd.R;
+
+import net.sourceforge.UI.activity.ActivityReceipt;
+
 /**
  * Created by terry.c on 26/03/2018.
  */
 
 public class JumpMethod {
 
-//    public static void jumpToNewsDetail(Context context, String newsId) {
-//        Intent intent = new Intent(context, ActivityNewsDetail.class);
-//        intent.putExtra(ActivityNewsDetail.PARAM_NEWS_ID, newsId);
-//        context.startActivity(intent);
-//        ((Activity)context).overridePendingTransition(R.anim.fragment_slide_right_enter,
-//                R.anim.fragment_slide_left_exit);
-//    }
+    public static void jumpToReceipt(Context context) {
+        Intent intent = new Intent(context, ActivityReceipt.class);
+        context.startActivity(intent);
+        ((Activity)context).overridePendingTransition(R.anim.fragment_slide_right_enter,
+                R.anim.fragment_slide_left_exit);
+    }
 //
 //    public static void jumpToUserEditDetail(Context context) {
 //        Intent intent = new Intent(context, ActivityUserEdit.class);

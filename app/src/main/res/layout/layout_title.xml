@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/d_title_bar_height"
     android:orientation="horizontal"
-    android:background="@color/c_title_bg"
+    android:background="@color/transparent"
     android:id="@+id/rl_nav"
     >
 

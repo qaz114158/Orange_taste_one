@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import com.chain.wallet.spd.R;
 
 import net.sourceforge.UI.adapter.BannerPageAdapter;
+import net.sourceforge.utils.AppUtils;
 
 import java.util.List;
 
@@ -106,8 +107,8 @@ public class WalletADPageView extends LinearLayout implements ViewPager.OnPageCh
             points[i] = new ImageView(mContext);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            layoutParams.leftMargin = 5;
-            layoutParams.rightMargin = 5;
+            layoutParams.leftMargin = AppUtils.dp2px(mContext, 3);
+            layoutParams.rightMargin = AppUtils.dp2px(mContext, 3);
             if (i == 0) {
                 points[i].setBackgroundResource(R.drawable.page_dot_focused);
             } else {

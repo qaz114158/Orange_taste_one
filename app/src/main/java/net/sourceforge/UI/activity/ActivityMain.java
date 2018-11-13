@@ -48,10 +48,10 @@ public class ActivityMain extends ActivityBase {
 
     private void initFragment() {
         currentFragmentIndex = 0;
-        mFragments = new Fragment[3];
+        mFragments = new Fragment[2];
         mFragments[0] = getSupportFragmentManager().findFragmentById(R.id.fragment_1);
         mFragments[1] = getSupportFragmentManager().findFragmentById(R.id.fragment_2);
-        mFragments[2] = getSupportFragmentManager().findFragmentById(R.id.fragment_3);
+//        mFragments[2] = getSupportFragmentManager().findFragmentById(R.id.fragment_3);
 //        mFragments[3] = getSupportFragmentManager().findFragmentById(R.id.fragment_4);
 //        mFragments[4] = getSupportFragmentManager().findFragmentById(R.id.fragment_5);
     }
@@ -61,29 +61,29 @@ public class ActivityMain extends ActivityBase {
 
         mTabButtons[0] =  findViewById(R.id.tabbutton_1);
         mTabButtons[1] =  findViewById(R.id.tabbutton_2);
-        mTabButtons[2] =  findViewById(R.id.tabbutton_3);
+//        mTabButtons[2] =  findViewById(R.id.tabbutton_3);
 //        mTabButtons[3] =  findViewById(R.id.tabbutton_4);
 //        mTabButtons[4] =  findViewById(R.id.tabbutton_5);
 
         mTabButtons[0].setTitle(getString(R.string.st_text1));
         mTabButtons[0].setIndex(0);
-        mTabButtons[0].setSelectedImage(getResources().getDrawable(R.drawable.icon_tab_news_sel));
-        mTabButtons[0].setUnselectedImage(getResources().getDrawable(R.drawable.icon_tab_news));
+        mTabButtons[0].setSelectedImage(getResources().getDrawable(R.drawable.ic_tab_home_selected));
+        mTabButtons[0].setUnselectedImage(getResources().getDrawable(R.drawable.ic_tab_home_nomal));
 
-        mTabButtons[1].setTitle(getString(R.string.st_text2));
+        mTabButtons[1].setTitle(getString(R.string.st_text3));
         mTabButtons[1].setIndex(1);
-        mTabButtons[1].setSelectedImage(getResources().getDrawable(R.drawable.icon_tab_talk_sel));
-        mTabButtons[1].setUnselectedImage(getResources().getDrawable(R.drawable.icon_tab_talk));
+        mTabButtons[1].setSelectedImage(getResources().getDrawable(R.drawable.ic_tab_me_selected));
+        mTabButtons[1].setUnselectedImage(getResources().getDrawable(R.drawable.ic_tab_me_nomal));
 
 //        mTabButtons[2].setTitle(getString(R.string.st_text3));
 //        mTabButtons[2].setIndex(2);
 //        mTabButtons[2].setSelectedImage(getResources().getDrawable(R.drawable.icon_tab_ser_sel));
 //        mTabButtons[2].setUnselectedImage(getResources().getDrawable(R.drawable.tt_tab_internal_nor));
 
-        mTabButtons[2].setTitle(getString(R.string.st_text3));
-        mTabButtons[2].setIndex(2);
-        mTabButtons[2].setSelectedImage(getResources().getDrawable(R.drawable.icon_tab_ser_sel));
-        mTabButtons[2].setUnselectedImage(getResources().getDrawable(R.drawable.icon_tab_ser));
+//        mTabButtons[2].setTitle(getString(R.string.st_text3));
+//        mTabButtons[2].setIndex(2);
+//        mTabButtons[2].setSelectedImage(getResources().getDrawable(R.drawable.icon_tab_ser_sel));
+//        mTabButtons[2].setUnselectedImage(getResources().getDrawable(R.drawable.icon_tab_ser));
 
 //        mTabButtons[3].setTitle(getString(R.string.st_text5));
 //        mTabButtons[3].setIndex(3);
@@ -93,11 +93,11 @@ public class ActivityMain extends ActivityBase {
 
     public void setFragmentIndicator(int which) {
         currentFragmentIndex = which;
-        getSupportFragmentManager().beginTransaction().hide(mFragments[0]).hide(mFragments[1]).hide(mFragments[2]).show(mFragments[which]).commitAllowingStateLoss();
+        getSupportFragmentManager().beginTransaction().hide(mFragments[0]).hide(mFragments[1]).show(mFragments[which]).commitAllowingStateLoss();
 
         mTabButtons[0].setSelectedButton(false);
         mTabButtons[1].setSelectedButton(false);
-        mTabButtons[2].setSelectedButton(false);
+//        mTabButtons[2].setSelectedButton(false);
 //        mTabButtons[3].setSelectedButton(false);
 //        mTabButtons[4].setSelectedButton(false);
 

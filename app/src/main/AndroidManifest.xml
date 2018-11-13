@@ -38,6 +38,16 @@
             android:name="net.sourceforge.UI.activity.ActivityMain"
             android:configChanges="locale|screenSize|orientation|screenLayout|keyboardHidden|mcc|mnc|touchscreen|keyboard|navigation|uiMode|smallestScreenSize|layoutDirection|fontScale"
             android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name="net.sourceforge.UI.activity.ActivityPreCreateAccount"
+            android:configChanges="locale|screenSize|orientation|screenLayout|keyboardHidden|mcc|mnc|touchscreen|keyboard|navigation|uiMode|smallestScreenSize|layoutDirection|fontScale"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name="net.sourceforge.UI.activity.ActivityReceipt"
+            android:configChanges="locale|screenSize|orientation|screenLayout|keyboardHidden|mcc|mnc|touchscreen|keyboard|navigation|uiMode|smallestScreenSize|layoutDirection|fontScale"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

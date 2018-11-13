@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/ic_pre_create_bg"
+    android:gravity="center_horizontal"
+    >
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_pre_create_title"
+        android:layout_marginTop="160dp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/bt_create"
+        android:background="@drawable/selector_background_3"
+        android:text="创建身份"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="170dp"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/bt_import"
+        android:background="@drawable/selector_background_3"
+        android:text="恢复身份"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="111dp"
+        android:layout_alignParentBottom="true"
+        />
+
+
+
+</RelativeLayout>

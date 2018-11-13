@@ -58,7 +58,7 @@ public class ActivityBase extends AppCompatActivity {
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
         initTitleBar();
-        StatusBarUtil.setStatuBarAndFontColor(this, getResources().getColor(R.color.colorPrimary), false);
+        StatusBarUtil.setStatuBarAndFontColor(this, getResources().getColor(R.color.c_statu_bg), false);
     }
 
     private void initTitleBar() {

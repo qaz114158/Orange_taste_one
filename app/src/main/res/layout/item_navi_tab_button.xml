@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/tab_btn_default"
-            android:layout_width="26dp"
-            android:layout_height="25dp"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
             android:layout_centerHorizontal="true"
             android:contentDescription="default_tab_image"
             android:scaleType="centerInside"
@@ -44,7 +44,9 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:text="聊天"
-            android:textSize="10sp" />
+            android:textSize="8sp"
+            android:layout_marginTop="6dp"
+            />
     </RelativeLayout>
 
 </LinearLayout>
