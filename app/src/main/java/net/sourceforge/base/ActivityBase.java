@@ -58,7 +58,7 @@ public class ActivityBase extends AppCompatActivity {
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
         initTitleBar();
-        StatusBarUtil.setStatuBarAndFontColor(this, getResources().getColor(R.color.c_statu_bg), false);
+        StatusBarUtil.setStatuBarAndFontColor(this, getResources().getColor(R.color.black), false);
     }
 
     private void initTitleBar() {
@@ -149,6 +149,12 @@ public class ActivityBase extends AppCompatActivity {
             iv_right_text_wrap_content.setBackgroundResource(backgroundDrawableId);
             iv_right_text_wrap_content.setTextColor(textColor);
             iv_right_text_wrap_content.setOnClickListener(onClickListener);
+        }
+    }
+
+    protected void setTitleBarBackgroundColor(int color) {
+        if (_naviBar != null) {
+            _naviBar.setBackgroundColor(color);
         }
     }
 

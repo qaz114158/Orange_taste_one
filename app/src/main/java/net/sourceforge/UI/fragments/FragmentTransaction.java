@@ -27,6 +27,11 @@ public class FragmentTransaction extends FragmentBase {
 
     private Unbinder unbinder;
 
+    public static FragmentTransaction newInstance() {
+        FragmentTransaction f = new FragmentTransaction();
+        return f;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

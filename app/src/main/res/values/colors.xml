@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="c_statu_bg">#292a2a</color>
+    <color name="c_statu_bg2">#0d0d0d</color>
     <color name="c_title_bg">#ffffffff</color>
 
     <color name="ripple_color">#cccbcc</color>
@@ -35,6 +36,7 @@
     <color name="white">#ffffffff</color>
 
     <color name="bg_base">#292a2a</color>
+    <color name="bg_base2">#434343</color>
     <color name="c_slide_background">#99000000</color>
     <color name="c_background_me">#0D0D0D</color>
 

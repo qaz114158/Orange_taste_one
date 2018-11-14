@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    >
+
+    <com.dd.ShadowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        app:sl_shadowRadius="6dp"
+        app:sl_shadowColor="#80000000"
+        app:sl_dx="0dp"
+        app:sl_dy="0dp"
+        app:sl_cornerRadius="2dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/shape_gray_cornor8"
+            android:orientation="vertical"
+            android:paddingLeft="42dp"
+            android:paddingRight="42dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+
+                android:layout_marginTop="20dp"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="收款地址"
+                    android:textSize="12sp"
+                    android:textColor="#bfbfbf"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_app_10"
+                    android:visibility="gone"
+                    />
+
+            </LinearLayout>
+
+            <EditText
+                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/transparent"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="@color/c_divider"
+                />
+
+        </LinearLayout>
+    </com.dd.ShadowLayout>
+
+
+    <com.dd.ShadowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        app:sl_shadowRadius="6dp"
+        app:sl_shadowColor="#80000000"
+        app:sl_dx="0dp"
+        app:sl_dy="0dp"
+        app:sl_cornerRadius="2dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/shape_gray_cornor8"
+            android:orientation="vertical"
+            android:paddingLeft="42dp"
+            android:paddingRight="42dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+
+                android:layout_marginTop="20dp"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="转账金额"
+                    android:textSize="12sp"
+                    android:textColor="#bfbfbf"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_app_10"
+                    android:visibility="gone"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="2dp"
+                >
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="30dp"
+                    android:background="@color/transparent"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:hint="请输入转账金额"
+                    android:textColorHint="#bfbfbf"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SPDT"
+                    android:textSize="12sp"
+                    android:textColor="#bfbfbf"
+                    />
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="@color/c_divider"
+                />
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="可用余额  6297，502.12(SPD)"
+                android:textSize="12sp"
+                android:textColor="#bfbfbf"
+                android:gravity="right"
+                />
+
+        </LinearLayout>
+    </com.dd.ShadowLayout>
+
+    <com.dd.ShadowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        app:sl_shadowRadius="6dp"
+        app:sl_shadowColor="#80000000"
+        app:sl_dx="0dp"
+        app:sl_dy="0dp"
+        app:sl_cornerRadius="2dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/shape_gray_cornor8"
+            android:orientation="vertical"
+            android:paddingLeft="42dp"
+            android:paddingRight="42dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+
+                android:layout_marginTop="20dp"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="备注信息（选填）"
+                    android:textSize="12sp"
+                    android:textColor="#bfbfbf"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_app_10"
+                    android:visibility="gone"
+                    />
+
+            </LinearLayout>
+
+            <EditText
+                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/transparent"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="@color/c_divider"
+                />
+
+        </LinearLayout>
+    </com.dd.ShadowLayout>
+
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+    <com.dd.ShadowLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        app:sl_shadowRadius="6dp"
+        app:sl_shadowColor="#f9000000"
+        app:sl_dx="5dp"
+        app:sl_dy="5dp"
+        app:sl_cornerRadius="24dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="48dp"
+        >
+        <Button
+            android:layout_width="189dp"
+            android:layout_height="48dp"
+
+            android:background="@drawable/shape_gray_cornor9"
+            android:text="下一步"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:id="@+id/bt_next"
+            />
+    </com.dd.ShadowLayout>
+
+
+</LinearLayout>

@@ -269,6 +269,16 @@ public class PreferenceHelper {
 
         public static final String KEY_FORUM_DEFAULT_LIST = "KEY_FORUM_DEFAULT_LIST";
 
+        public static final String KEY_COIN_LIST = "KEY_COIN_LIST";
+
+        public static final String KEY_ADDRESS_LIST = "KEY_ADDRESS_LIST";
+
+        public static final String KEY_WALLET_LIST = "KEY_WALLET_LIST";
+
+        public static final String KEY_WALLET_CURRENT_PUBKEY = "KEY_WALLET_CURRENT_PUBKEY";
+
+        public static final String KEY_WALLET_TRANS = "KEY_WALLET_TRANS";
+
         public PreferenceKey() {
         }
     }

@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import com.chain.wallet.spd.R;
 
+import net.sourceforge.UI.activity.ActivityDetail;
 import net.sourceforge.UI.activity.ActivityReceipt;
 
 /**
@@ -20,6 +21,18 @@ public class JumpMethod {
         ((Activity)context).overridePendingTransition(R.anim.fragment_slide_right_enter,
                 R.anim.fragment_slide_left_exit);
     }
+
+
+    public static void jumpToDetail(Context context, String title, int type) {
+        Intent intent = new Intent(context, ActivityDetail.class);
+        intent.putExtra(ActivityDetail.PARAM_TYPE_TITLE,title);
+        intent.putExtra(ActivityDetail.PARAM_TYPE_CONTENT,type);
+        context.startActivity(intent);
+        ((Activity)context).overridePendingTransition(R.anim.fragment_slide_right_enter,
+                R.anim.fragment_slide_left_exit);
+    }
+
+
 //
 //    public static void jumpToUserEditDetail(Context context) {
 //        Intent intent = new Intent(context, ActivityUserEdit.class);

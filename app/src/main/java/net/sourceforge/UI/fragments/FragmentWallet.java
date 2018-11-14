@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chain.wallet.spd.R;
 
+import net.sourceforge.UI.activity.ActivityDetail;
 import net.sourceforge.UI.adapter.HomeAssertsAdapter;
 import net.sourceforge.UI.adapter.HomeFeatureAdapter;
 import net.sourceforge.base.FragmentBase;
@@ -77,39 +78,44 @@ public class FragmentWallet extends FragmentBase {
         models.add(new HomeFeatureModel("理财", R.drawable.ic_home_5));
         models.add(new HomeFeatureModel("更多", R.drawable.ic_home_2));
         homeFeatureAdapter.setNewData(models);
-        homeFeatureAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        homeFeatureAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (position) {
                     case 0:
                     {
                         //收款
                         JumpMethod.jumpToReceipt(mContext);
                     }
-                        break;
+                    break;
                     case 1:
                     {
                         //转账
+                        JumpMethod.jumpToDetail(mContext, "转账", ActivityDetail.PAGE_TRANSFER);
                     }
                     break;
                     case 2:
                     {
                         //付款
+                        JumpMethod.jumpToDetail(mContext, "付款", ActivityDetail.PAGE_PAY);
                     }
                     break;
                     case 3:
                     {
                         //买卖
+                        JumpMethod.jumpToDetail(mContext, "买卖", ActivityDetail.PAGE_BUSSINESS);
                     }
                     break;
                     case 4:
                     {
                         //理财
+                        JumpMethod.jumpToDetail(mContext, "理财", ActivityDetail.PAGE_LICAI);
                     }
                     break;
                     case 5:
                     {
                         //更多
+                        JumpMethod.jumpToDetail(mContext, "交易记录", ActivityDetail.PAGE_MORE);
                     }
                     break;
                 }
