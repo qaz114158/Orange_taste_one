@@ -32,6 +32,14 @@ public class HomeAssertsAdapter extends BaseQuickAdapter<HomeAssertModel, BaseVi
             helper.getView(R.id.ll_content).setVisibility(View.VISIBLE);
         }
 
+        if (helper.getLayoutPosition() == 0) {
+            helper.setImageResource(R.id.iv_image, R.drawable.ic_home_3);
+        } else if (helper.getLayoutPosition() == 1) {
+            helper.setImageResource(R.id.iv_image, R.drawable.ic_app_70);
+        } else if (helper.getLayoutPosition() == 2) {
+            helper.setImageResource(R.id.iv_image, R.drawable.ic_app_71);
+        }
+
     }
 
 

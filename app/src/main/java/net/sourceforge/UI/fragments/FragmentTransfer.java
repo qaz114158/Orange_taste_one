@@ -12,6 +12,7 @@ import net.sourceforge.UI.view.TransferDialog1;
 import net.sourceforge.UI.view.TransferDialog2;
 import net.sourceforge.base.FragmentBase;
 import net.sourceforge.commons.log.SWLog;
+import net.sourceforge.utils.DMG;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -96,7 +97,8 @@ public class FragmentTransfer extends FragmentBase {
             public void onClickBtn(boolean isConform) {
                 transferDialog2.dismiss();
                 if (isConform) {
-
+                    DMG.showNomalShortToast("转账成功");
+                    getActivity().finish();
                 }
             }
         });

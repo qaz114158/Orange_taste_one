@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 
 import com.chain.wallet.spd.R;
 
@@ -18,6 +19,8 @@ public class InputAmountDialog extends Dialog implements View.OnClickListener{
     private CheckBox cb_aggrement;
 
     private Button bt_continue;
+
+    private EditText et_count;
 
     public InputAmountDialog(Context context, IOnProtocolDialogClickListener iOnProtocolDialogClickListener) {
         super(context, com.terry.tcdialoglibrary.R.style.CommonDialog);
@@ -52,6 +55,8 @@ public class InputAmountDialog extends Dialog implements View.OnClickListener{
         btn_cancel.setOnClickListener(this);
         Button btn_confirm = findViewById(R.id.btn_confirm);
         btn_confirm.setOnClickListener(this);
+
+        et_count = findViewById(R.id.et_count);
     }
 
     @Override
@@ -61,7 +66,8 @@ public class InputAmountDialog extends Dialog implements View.OnClickListener{
             case R.id.btn_cancel:
             {
                 if (iOnProtocolDialogClickListener != null) {
-                    iOnProtocolDialogClickListener.onClickBtn(true);
+                    String count = et_count.getText().toString();
+                    iOnProtocolDialogClickListener.onClickBtn(true, count);
                 }
             }
                 break;
@@ -70,7 +76,7 @@ public class InputAmountDialog extends Dialog implements View.OnClickListener{
 
     public interface IOnProtocolDialogClickListener {
 
-        public void onClickBtn(boolean isConform);
+        public void onClickBtn(boolean isConform, String count);
 
     }
 

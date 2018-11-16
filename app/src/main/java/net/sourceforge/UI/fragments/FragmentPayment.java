@@ -1,17 +1,21 @@
 package net.sourceforge.UI.fragments;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.chain.wallet.spd.R;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import net.sourceforge.base.FragmentBase;
 import net.sourceforge.commons.log.SWLog;
 
 import org.greenrobot.eventbus.EventBus;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -26,6 +30,9 @@ public class FragmentPayment extends FragmentBase {
     private View curView = null;
 
     private Unbinder unbinder;
+
+    @BindView(R.id.iv_qr_image)
+    public ImageView iv_qr_image;
 
     public static FragmentPayment newInstance() {
         FragmentPayment f = new FragmentPayment();
@@ -42,7 +49,13 @@ public class FragmentPayment extends FragmentBase {
         }
         curView = inflater.inflate(R.layout.layout_payment, null);
         unbinder = ButterKnife.bind(this, curView);
+        initRes();
         return curView;
+    }
+
+    private void initRes() {
+        Bitmap mBitmap = CodeUtils.createImage("fukuan", 400, 400, null);
+        iv_qr_image.setImageBitmap(mBitmap);
     }
 
     @Override

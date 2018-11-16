@@ -7,6 +7,7 @@ import com.chain.wallet.spd.R;
 
 import net.sourceforge.base.ActivityBase;
 import net.sourceforge.external.eventbus.events.EventAction;
+import net.sourceforge.manager.JumpMethod;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -28,12 +29,12 @@ public class ActivityPreCreateAccount extends ActivityBase {
 
     @OnClick(R.id.bt_create)
     public void onClickCreateAcc() {
-//        JumpMethod.jumpToCreateAccount(this);
+        JumpMethod.jumpToCreateAccount(this);
     }
 
     @OnClick(R.id.bt_import)
     public void onClickImportAcc() {
-//        JumpMethod.jumpToImportAccount(this);
+        JumpMethod.jumpToImportAccount(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -53,23 +53,12 @@ public class UserManager {
         return true;
     }
 
-    public void updateUserBindPhone(String newPhone) {
-        mUserInfo = getUserInfo();
-        mUserInfo.regmobile = newPhone;
-        updateUserInfo(mUserInfo);
-    }
 
     public void logoutUser() {
         EventBus.getDefault().post(new EventAction(null, EventAction.EventKey.KEY_USER_LOGOUT));
         deleteUserInfo();
     }
 
-    public String getToken() {
-        if (getUserInfo() == null) {
-            return "";
-        }
-        return getUserInfo().token;
-    }
 
 
 

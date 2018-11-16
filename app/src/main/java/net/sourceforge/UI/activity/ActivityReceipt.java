@@ -15,6 +15,8 @@ import net.sourceforge.UI.view.InputAmountDialog;
 import net.sourceforge.base.ActivityBase;
 import net.sourceforge.http.model.WalletModel;
 import net.sourceforge.manager.WalletManager;
+import net.sourceforge.utils.AppUtils;
+import net.sourceforge.utils.DMG;
 import net.sourceforge.utils.StatusBarUtil;
 
 import butterknife.BindView;
@@ -35,6 +37,9 @@ public class ActivityReceipt extends ActivityBase {
 
     @BindView(R.id.tv_has_copy)
     public TextView tv_has_copy;
+
+    @BindView(R.id.tv_in_count)
+    public TextView tv_in_count;
 
     private WalletModel walletModel;
 
@@ -57,7 +62,7 @@ public class ActivityReceipt extends ActivityBase {
 
     private void initViews() {
         tv_address.setText(walletModel.address);
-        Bitmap mBitmap = CodeUtils.createImage(walletModel.address, 400, 400, null);
+        Bitmap mBitmap = CodeUtils.createImage("shoukuan:0", 400, 400, null);
         iv_qr_image.setImageBitmap(mBitmap);
 
     }
@@ -71,7 +76,17 @@ public class ActivityReceipt extends ActivityBase {
     public void onCLickInputAmount() {
         dialog = new InputAmountDialog(this, new InputAmountDialog.IOnProtocolDialogClickListener() {
             @Override
-            public void onClickBtn(boolean isConform) {
+            public void onClickBtn(boolean isConform, String count) {
+                if (isConform) {
+                    if (net.sourceforge.utils.TextUtils.isNumeric(count)) {
+                        tv_in_count.setText(count);
+                        Bitmap mBitmap = CodeUtils.createImage("shoukuan:"+ count, 400, 400, null);
+                        iv_qr_image.setImageBitmap(mBitmap);
+                    } else {
+                        DMG.showNomalShortToast("请输入正确的金额");
+                    }
+
+                }
                 dialog.dismiss();
             }
         });

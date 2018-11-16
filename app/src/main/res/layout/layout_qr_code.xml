@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/c_title_bg"
+    android:background="@color/bg_base"
+    android:paddingTop="20dp"
     >
 
     <include layout="@layout/layout_title" />

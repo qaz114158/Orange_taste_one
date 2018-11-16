@@ -1,6 +1,8 @@
 package net.sourceforge.utils;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.util.TypedValue;
 import android.view.inputmethod.InputMethodManager;
@@ -32,4 +34,18 @@ public class AppUtils {
                 ctx.getResources().getDisplayMetrics());
     }
 
+    public static String genalCharacter(int size) {
+        String str = "";
+        for (int i = 0;i<size;i++){
+            str = str+ (char)(Math.random()*26+'A');
+        }
+        return str;
+    }
+
+    public static void clipboardString(Context context,String str) {
+        ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData mClipData = ClipData.newPlainText("Label", str);
+        cm.setPrimaryClip(mClipData);
+        DMG.showNomalShortToast("复制成功");
+    }
 }

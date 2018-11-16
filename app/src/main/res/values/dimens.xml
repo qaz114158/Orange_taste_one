@@ -22,4 +22,6 @@
     <dimen name="d_width_1">300dp</dimen>
     <dimen name="d_margin_2">144dp</dimen>
     <dimen name="d_margin_3">10dp</dimen>
+
+    <dimen name="d_divider_height">0.8dp</dimen>
 </resources>

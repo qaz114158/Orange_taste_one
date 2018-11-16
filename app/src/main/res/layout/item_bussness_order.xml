@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/bg_base2"
+    >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:paddingTop="9dp"
+        android:paddingLeft="23dp"
+        android:paddingRight="23dp"
+        android:paddingBottom="12dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="单号 NO10061"
+                android:textColor="#999999"
+                android:textSize="12sp"
+                android:gravity="left"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="剩余交易时间：00：15：00"
+                android:textColor="#999999"
+                android:textSize="12sp"
+                android:gravity="right"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="买入量：2000.0000 SPDT（1 SPDT/0.88 CNY）"
+            android:textSize="9.3sp"
+            android:textColor="#bfbfbf"
+            android:layout_marginTop="11dp"
+            />
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="总额：1760.00 CNY"
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:layout_marginTop="11dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                />
+            
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:background="@color/transparent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="去支付"
+                android:textSize="11.3sp"
+                android:textColor="#04ac54"
+                android:gravity="right"
+                android:id="@+id/bt_pay"
+                />
+            
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:background="@color/bg_base"
+        />
+
+</LinearLayout>

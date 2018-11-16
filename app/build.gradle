@@ -119,6 +119,9 @@ dependencies {
 
     //阴影
     implementation 'com.github.dmytrodanylyk.shadow-layout:library:1.0.3'
+
+    //ViewPagerIndicator
+    implementation 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
 }
 
 configurations.all {

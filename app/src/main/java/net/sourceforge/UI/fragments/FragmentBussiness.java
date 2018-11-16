@@ -81,9 +81,9 @@ public class FragmentBussiness extends FragmentBase {
 
     private void initRes() {
         mDataList = new ArrayList<>();
-        mDataList.add("全部");
-        mDataList.add("转账");
-        mDataList.add("收款");
+        mDataList.add("买入");
+        mDataList.add("卖出");
+        mDataList.add("交易订单");
 
         mViewPager = curView.findViewById(R.id.view_pager);
         mViewPager.setOffscreenPageLimit(0);
@@ -106,7 +106,7 @@ public class FragmentBussiness extends FragmentBase {
                 SimplePagerTitleView simplePagerTitleView = new ColorTransitionPagerTitleView(context);
                 simplePagerTitleView.setNormalColor(getResources().getColor(R.color.white));
                 simplePagerTitleView.setSelectedColor(getResources().getColor(R.color.default_blue_color));
-                simplePagerTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+                simplePagerTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
                 simplePagerTitleView.setText(mDataList.get(index));
 
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
@@ -185,11 +185,11 @@ public class FragmentBussiness extends FragmentBase {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return FragmentTransAll.newInstance();
+                    return FragmentBussnessBuy.newInstance();
                 case 1:
-                    return FragmentTransZZ.newInstance();
+                    return FragmentBussnessSell.newInstance();
                 case 2:
-                    return FragmentTransSK.newInstance();
+                    return FragmentBussnessOrder.newInstance();
             }
             return FragmentSample.newInstance();
         }

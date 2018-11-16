@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_base"
+    android:id="@+id/root_container"
+    android:paddingTop="20dp"
+    >
+
+    <include layout="@layout/layout_title" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:paddingLeft="40dp"
+        android:textSize="12sp"
+        android:textColor="#044d8d"
+        android:background="#40044d8d"
+        android:text="使用助记词导入的同时可以修改钱包密码。"
+        android:gravity="center_vertical"
+        >
+    </TextView>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:letterSpacing="0.2"
+        android:lineSpacingExtra="-8sp"
+        android:text="恢复身份"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="21dp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/shape_gray_cornor3"
+        android:layout_marginTop="37dp"
+        android:gravity="top"
+        android:textSize="12sp"
+        android:textColor="@color/c_text1"
+        android:hint="输入助记词，用空格分隔"
+        android:paddingTop="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="10dp"
+        android:id="@+id/et_mnemonic"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        >
+
+
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="了解助记词"
+            android:textColor="#044d8d"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+
+
+    <Button
+        android:id="@+id/bt_restore"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/selector_background_3"
+        android:text="恢复"
+        android:textColor="@color/white"
+        android:enabled="true"
+        android:textSize="16sp" />
+    
+</LinearLayout>

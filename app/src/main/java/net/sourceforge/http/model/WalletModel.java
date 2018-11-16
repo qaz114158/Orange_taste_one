@@ -29,4 +29,7 @@ public class WalletModel implements Serializable{
      */
     public int importFrom = 0;
 
+    public int balance;
+
+
 }

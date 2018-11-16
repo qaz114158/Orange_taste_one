@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg_base"
     android:orientation="vertical"
+    android:paddingTop="20dp"
 >
 
     <ImageButton
@@ -68,6 +69,8 @@
                         android:layout_below="@+id/tv_username"
                         android:drawableRight="@drawable/ic_home_copy"
                         android:id="@+id/tv_address"
+                        android:singleLine="true"
+                        android:clickable="true"
                         />
 
                 </LinearLayout>
@@ -82,6 +85,7 @@
                     android:textSize="11sp"
                     android:background="@color/transparent"
                     android:text="切换钱包"
+                    android:visibility="gone"
                     />
 
 
@@ -137,22 +141,41 @@
                             android:paddingLeft="20dp"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
+                            android:id="@+id/ib_hide_assert"
                             />
 
                     </RelativeLayout>
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="30sp"
-                        android:textColor="#e1b631"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
                         android:layout_gravity="center_horizontal"
-                        android:text="629,502.1200"
-                        android:shadowColor="#ff000000"
-                        android:shadowDx="7"
-                        android:shadowDy="10"
-                        android:shadowRadius="20"
-                        android:drawableRight="@drawable/ic_home_4"
-                        />
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="30sp"
+                            android:textColor="#e1b631"
+                            android:layout_gravity="center_horizontal"
+                            android:text="629,502.1200"
+                            android:shadowColor="#ff000000"
+                            android:shadowDx="7"
+                            android:shadowDy="10"
+                            android:shadowRadius="20"
+                            android:id="@+id/tv_count"
+                            android:gravity="center_vertical"
+                            android:drawablePadding="5dp"
+                            />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:src="@drawable/ic_home_4"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="2dp"
+                            />
+                    </LinearLayout>
+
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -162,6 +185,7 @@
                         android:textSize="16sp"
                         android:textColor="@color/white"
                         android:letterSpacing="0.05"
+                        android:id="@+id/tv_count_cny"
                         />
 
 

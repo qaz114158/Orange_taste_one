@@ -43,7 +43,7 @@ public class ActivityMain extends ActivityBase {
         setFragmentIndicator(0);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
-        checkPermission();
+//        checkPermission();
     }
 
     private void initFragment() {

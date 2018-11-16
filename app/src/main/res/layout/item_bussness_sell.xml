@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/bg_base2"
+    >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:paddingTop="9dp"
+        android:paddingLeft="23dp"
+        android:paddingRight="23dp"
+        android:paddingBottom="12dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="单号 NO10061"
+                android:textColor="#999999"
+                android:textSize="12sp"
+                android:gravity="left"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="成交量:0"
+                android:textColor="#999999"
+                android:textSize="12sp"
+                android:gravity="center"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="5/11/2018"
+                android:textColor="#999999"
+                android:textSize="12sp"
+                android:gravity="right"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.88 CNY"
+            android:textColor="#ffca25"
+            android:textSize="14sp"
+            android:layout_marginTop="11dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="最小交易量：2000.0000 SPDT"
+            android:textSize="9.3sp"
+            android:textColor="#bfbfbf"
+            android:layout_marginTop="11dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已成交量：20000.0000 SPDT"
+            android:textSize="9.3sp"
+            android:textColor="#bfbfbf"
+            android:layout_marginTop="11dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            >
+
+            
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="20dp"
+                android:background="@drawable/shape_gray_cornor11"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="立即卖出"
+                android:textSize="11.3sp"
+                android:textColor="#ffffff"
+                android:id="@+id/bt_sell"
+                />
+            
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:background="@color/bg_base"
+        />
+
+</LinearLayout>

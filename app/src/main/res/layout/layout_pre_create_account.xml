@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:background="@drawable/ic_pre_create_bg"
     android:gravity="center_horizontal"
+    android:paddingTop="20dp"
     >
 
 

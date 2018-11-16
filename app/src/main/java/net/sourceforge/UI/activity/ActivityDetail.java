@@ -7,18 +7,24 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
-import android.view.View;
 
 import com.chain.wallet.spd.R;
 
+import net.sourceforge.UI.fragments.FragmentAboutUS;
+import net.sourceforge.UI.fragments.FragmentAuth;
+import net.sourceforge.UI.fragments.FragmentAuthBase;
+import net.sourceforge.UI.fragments.FragmentAuthHigh;
+import net.sourceforge.UI.fragments.FragmentAuthMiddle;
 import net.sourceforge.UI.fragments.FragmentBussiness;
 import net.sourceforge.UI.fragments.FragmentFinancialManagement;
-import net.sourceforge.UI.fragments.FragmentMe;
 import net.sourceforge.UI.fragments.FragmentMore;
+import net.sourceforge.UI.fragments.FragmentTransRecord;
 import net.sourceforge.UI.fragments.FragmentPayment;
+import net.sourceforge.UI.fragments.FragmentSetLoginPassword;
+import net.sourceforge.UI.fragments.FragmentSetOTC;
+import net.sourceforge.UI.fragments.FragmentSetPayPassword;
 import net.sourceforge.UI.fragments.FragmentTransfer;
 import net.sourceforge.base.ActivityBase;
-import net.sourceforge.http.model.WalletModel;
 
 import butterknife.ButterKnife;
 
@@ -41,6 +47,24 @@ public class ActivityDetail extends ActivityBase {
     public static final int PAGE_LICAI = 4;//理财
 
     public static final int PAGE_MORE = 5;//更多
+
+    public static final int PAGE_SET_PAY_PASSWORD = 6;//设置支付密码
+
+    public static final int PAGE_SET_LOGIN_PASSWORD = 7;//重置登录密码
+
+    public static final int PAGE_AUTH = 8;//实名认证
+
+    public static final int PAGE_AUTH_BASE = 9;//基础认证
+
+    public static final int PAGE_AUTH_MIDDLE = 10;//中级认证
+
+    public static final int PAGE_AUTH_HIGH = 11;//高级认证
+
+    public static final int PAGE_SET_OTC = 12;//设置OTC
+
+    public static final int PAGE_ABOUT_US = 13;//关于我们
+
+    public static final int PAGE_TRANS_RECORD = 14;//交易记录
 
     private AppBarLayout appbar;
 
@@ -73,6 +97,7 @@ public class ActivityDetail extends ActivityBase {
                 navigateTo(FragmentPayment.newInstance());
                 break;
             case PAGE_BUSSINESS:
+                setTitleBarBackgroundColor(getResources().getColor(R.color.bg_base2));
                 navigateTo(FragmentBussiness.newInstance());
                 break;
             case PAGE_LICAI:
@@ -80,11 +105,61 @@ public class ActivityDetail extends ActivityBase {
                 break;
             case PAGE_MORE:
             {
-                setTitleBarBackgroundColor(getResources().getColor(R.color.bg_base2));
+//                setTitleBarBackgroundColor(getResources().getColor(R.color.bg_base2));
+//                navigateTo(FragmentTransRecord.newInstance());
                 navigateTo(FragmentMore.newInstance());
+
             }
 
                 break;
+            case PAGE_SET_PAY_PASSWORD:
+            {
+                navigateTo(FragmentSetPayPassword.newInstance());
+            }
+                break;
+            case PAGE_SET_LOGIN_PASSWORD:
+            {
+                navigateTo(FragmentSetLoginPassword.newInstance());
+            }
+                break;
+            case PAGE_AUTH:
+            {
+                navigateTo(FragmentAuth.newInstance());
+            }
+                break;
+            case PAGE_AUTH_BASE:
+            {
+                navigateTo(FragmentAuthBase.newInstance());
+            }
+                break;
+            case PAGE_AUTH_MIDDLE:
+            {
+                navigateTo(FragmentAuthMiddle.newInstance());
+            }
+            break;
+            case PAGE_AUTH_HIGH:
+            {
+                navigateTo(FragmentAuthHigh.newInstance());
+            }
+            break;
+            case PAGE_SET_OTC:
+            {
+                navigateTo(FragmentSetOTC.newInstance());
+            }
+            break;
+            case PAGE_ABOUT_US:
+            {
+                navigateTo(FragmentAboutUS.newInstance());
+            }
+                break;
+
+            case PAGE_TRANS_RECORD:
+            {
+                setTitleBarBackgroundColor(getResources().getColor(R.color.bg_base2));
+                navigateTo(FragmentTransRecord.newInstance());
+            }
+                break;
+
         }
     }
 

@@ -1,24 +1,43 @@
 package net.sourceforge.UI.fragments;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
+import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chain.wallet.spd.R;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import net.sourceforge.UI.activity.ActivityDetail;
+import net.sourceforge.UI.activity.ActivityMain;
+import net.sourceforge.UI.activity.CaptureQRActivity;
 import net.sourceforge.UI.adapter.HomeAssertsAdapter;
 import net.sourceforge.UI.adapter.HomeFeatureAdapter;
 import net.sourceforge.base.FragmentBase;
 import net.sourceforge.commons.log.SWLog;
 import net.sourceforge.http.model.HomeAssertModel;
 import net.sourceforge.http.model.HomeFeatureModel;
+import net.sourceforge.http.model.WalletModel;
 import net.sourceforge.manager.JumpMethod;
+import net.sourceforge.manager.WalletManager;
+import net.sourceforge.utils.AppUtils;
+import net.sourceforge.utils.DMG;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -27,7 +46,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
+import kr.co.namee.permissiongen.PermissionGen;
+import kr.co.namee.permissiongen.PermissionSuccess;
 
 /**
  * Created by terry.c on 06/03/2018.
@@ -49,7 +71,25 @@ public class FragmentWallet extends FragmentBase {
     @BindView(R.id.rl_home_asserts)
     public RecyclerView rl_home_asserts;
 
+    @BindView(R.id.tv_username)
+    public TextView tv_username;
+
+    @BindView(R.id.tv_address)
+    public TextView tv_address;
+
+    @BindView(R.id.tv_count)
+    public TextView tv_count;
+
+    @BindView(R.id.tv_count_cny)
+    public TextView tv_count_cny;
+
     private HomeAssertsAdapter homeAssertsAdapter;
+
+    private boolean isShow = true;
+
+    public static final int REQ_CODE_PERMISSION = 0x1111;
+
+    public static final int REQUEST_CODE = 0x1112;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,10 +102,25 @@ public class FragmentWallet extends FragmentBase {
         curView = inflater.inflate(R.layout.layout_wallet, null);
         unbinder = ButterKnife.bind(this, curView);
         initResource();
+        setData();
         return curView;
     }
 
+    private void setData() {
+        WalletModel walletModel = WalletManager.getInstance().getCurrentWallet();
+        if (walletModel != null) {
+            tv_username.setText(walletModel.walletId);
+            tv_address.setText(walletModel.address);
+            tv_count.setText(String.valueOf(walletModel.balance));
+            tv_count_cny.setText("≈" + String.valueOf(walletModel.balance*2) + " CNY");
+        }
+    }
+
     private void initResource() {
+//        Drawable left=getResources().getDrawable(R.drawable.ic_home_4);
+//        left.setBounds(0,0,128,66);
+//        tv_count.setCompoundDrawables(null,null ,left,null);
+
         GridLayoutManager layoutManage = new GridLayoutManager(getContext(), 3);
         rl_home_features.setLayoutManager(layoutManage);
         rl_home_features.setAdapter(homeFeatureAdapter = new HomeFeatureAdapter(R.layout.item_home_feature));
@@ -109,13 +164,14 @@ public class FragmentWallet extends FragmentBase {
                     case 4:
                     {
                         //理财
+//                        DMG.showNomalShortToast("暂未开通");
                         JumpMethod.jumpToDetail(mContext, "理财", ActivityDetail.PAGE_LICAI);
                     }
                     break;
                     case 5:
                     {
                         //更多
-                        JumpMethod.jumpToDetail(mContext, "交易记录", ActivityDetail.PAGE_MORE);
+                        JumpMethod.jumpToDetail(mContext, "", ActivityDetail.PAGE_MORE);
                     }
                     break;
                 }
@@ -161,5 +217,71 @@ public class FragmentWallet extends FragmentBase {
         }
     }
 
+    @OnClick(R.id.ib_scan)
+    public void onClickScanBtn() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.VIBRATE) != PackageManager.PERMISSION_GRANTED) {
+            // Do not have the permission of camera, request it.
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA, Manifest.permission.VIBRATE}, REQ_CODE_PERMISSION);
+        } else {
+            // Have gotten the permission
+            Intent intent = new Intent(getActivity(), CaptureQRActivity.class);
+            startActivityForResult(intent, REQUEST_CODE);
+        }
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            //处理扫描结果（在界面上显示）
+            if (null != data) {
+                Bundle bundle = data.getExtras();
+                if (bundle == null) {
+                    return;
+                }
+                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+                    String result = bundle.getString(CodeUtils.RESULT_STRING);
+                    Toast.makeText(getActivity(), "解析结果:" + result, Toast.LENGTH_LONG).show();
+//                    et_address.setText(result);
+                    checkScanResult(result);
+
+
+                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+//                    Toast.makeText(getActivity(), "解析二维码失败", Toast.LENGTH_LONG).show();
+                    DMG.showNomalShortToast("解析二维码失败");
+                }
+            }
+        }
+    }
+
+    private void checkScanResult(String scanResult) {
+        if (!TextUtils.isEmpty(scanResult)) {
+            String[] strings = scanResult.split(":");
+            if (strings!=null && strings.length >0) {
+                if ("shoukuan".equalsIgnoreCase(strings[0])) {
+
+                }
+            }
+        }
+    }
+
+    @OnClick(R.id.tv_address)
+    public void onClickAddress() {
+        AppUtils.clipboardString(mContext, tv_address.getText().toString());
+    }
+
+
+    @OnClick(R.id.ib_hide_assert)
+    public void onCLickShowHideAssert() {
+        isShow = !isShow;
+        if (isShow) {
+
+            tv_count.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            tv_count_cny.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+        } else {
+            tv_count.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            tv_count_cny.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        }
+    }
 }

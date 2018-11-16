@@ -43,7 +43,12 @@ public class FragmentSample extends FragmentBase {
         }
         curView = inflater.inflate(R.layout.layout_sample, null);
         unbinder = ButterKnife.bind(this, curView);
+        initRes();
         return curView;
+    }
+
+    private void initRes() {
+
     }
 
     @Override

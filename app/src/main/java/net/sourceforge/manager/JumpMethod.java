@@ -6,8 +6,14 @@ import android.content.Intent;
 
 import com.chain.wallet.spd.R;
 
+import net.sourceforge.UI.activity.ActivityBackUpMnemonicStepOne;
+import net.sourceforge.UI.activity.ActivityBackUpMnemonicStepTwo;
+import net.sourceforge.UI.activity.ActivityCreateAccount;
 import net.sourceforge.UI.activity.ActivityDetail;
+import net.sourceforge.UI.activity.ActivityMain;
 import net.sourceforge.UI.activity.ActivityReceipt;
+import net.sourceforge.UI.activity.ActivityRestoreAccount;
+import net.sourceforge.http.model.WalletModel;
 
 /**
  * Created by terry.c on 26/03/2018.
@@ -32,6 +38,42 @@ public class JumpMethod {
                 R.anim.fragment_slide_left_exit);
     }
 
+    public static void jumpToBackupMnemonicStepTwo(Context context,WalletModel walletModel) {
+        Intent intent = new Intent(context, ActivityBackUpMnemonicStepTwo.class);
+        intent.putExtra("walletModel", walletModel);
+        context.startActivity(intent);
+        ((Activity) context).overridePendingTransition(R.anim.fragment_slide_right_enter,
+                R.anim.fragment_slide_left_exit);
+    }
+
+    public static void jumpToBackupMnemonicStepOne(Context context,WalletModel walletModel) {
+        Intent intent = new Intent(context, ActivityBackUpMnemonicStepOne.class);
+        intent.putExtra("walletModel", walletModel);
+        context.startActivity(intent);
+        ((Activity) context).overridePendingTransition(R.anim.fragment_slide_right_enter,
+                R.anim.fragment_slide_left_exit);
+    }
+
+    public static void jumpToMain(Context context) {
+        Intent intent = new Intent(context, ActivityMain.class);
+        context.startActivity(intent);
+        ((Activity)context).overridePendingTransition(R.anim.fragment_slide_right_enter,
+                R.anim.fragment_slide_left_exit);
+    }
+
+    public static void jumpToImportAccount(Context context) {
+        Intent intent = new Intent(context, ActivityRestoreAccount.class);
+        context.startActivity(intent);
+        ((Activity) context).overridePendingTransition(R.anim.fragment_slide_right_enter,
+                R.anim.fragment_slide_left_exit);
+    }
+
+    public static void jumpToCreateAccount(Context context) {
+        Intent intent = new Intent(context, ActivityCreateAccount.class);
+        context.startActivity(intent);
+        ((Activity) context).overridePendingTransition(R.anim.fragment_slide_right_enter,
+                R.anim.fragment_slide_left_exit);
+    }
 
 //
 //    public static void jumpToUserEditDetail(Context context) {

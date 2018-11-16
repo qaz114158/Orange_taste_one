@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_base"
+    android:paddingLeft="25dp"
+    android:paddingTop="30dp"
+    android:paddingRight="25dp"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="#bfbfbf"
+        android:gravity="center_horizontal"
+        android:text="手持身份证照"
+        />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="183dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/shape_gray_cornor16"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            />
+
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+    <Button
+        android:layout_width="189dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="48dp"
+        android:background="@drawable/shape_gray_cornor9"
+        android:text="完成"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:id="@+id/bt_next"
+        />
+
+</LinearLayout>
