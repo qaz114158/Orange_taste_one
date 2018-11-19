@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import com.chain.wallet.spd.R;
 
 import net.sourceforge.UI.fragments.FragmentAboutUS;
+import net.sourceforge.UI.fragments.FragmentAddressBook;
 import net.sourceforge.UI.fragments.FragmentAuth;
 import net.sourceforge.UI.fragments.FragmentAuthBase;
 import net.sourceforge.UI.fragments.FragmentAuthHigh;
@@ -23,6 +24,7 @@ import net.sourceforge.UI.fragments.FragmentPayment;
 import net.sourceforge.UI.fragments.FragmentSetLoginPassword;
 import net.sourceforge.UI.fragments.FragmentSetOTC;
 import net.sourceforge.UI.fragments.FragmentSetPayPassword;
+import net.sourceforge.UI.fragments.FragmentTransRecordDetail;
 import net.sourceforge.UI.fragments.FragmentTransfer;
 import net.sourceforge.base.ActivityBase;
 
@@ -66,6 +68,12 @@ public class ActivityDetail extends ActivityBase {
 
     public static final int PAGE_TRANS_RECORD = 14;//交易记录
 
+    public static final int PAGE_ADDRESS_BOOK = 15;//地址本
+
+    public static final int PAGE_ADDRESS_BOOK_CHOOSE = 16;//选择地址本
+
+    public static final int PAGE_TRANS_RECORD_DETAIL = 17;//交易记录详情
+
     private AppBarLayout appbar;
 
     @Override
@@ -108,9 +116,7 @@ public class ActivityDetail extends ActivityBase {
 //                setTitleBarBackgroundColor(getResources().getColor(R.color.bg_base2));
 //                navigateTo(FragmentTransRecord.newInstance());
                 navigateTo(FragmentMore.newInstance());
-
             }
-
                 break;
             case PAGE_SET_PAY_PASSWORD:
             {
@@ -157,6 +163,23 @@ public class ActivityDetail extends ActivityBase {
             {
                 setTitleBarBackgroundColor(getResources().getColor(R.color.bg_base2));
                 navigateTo(FragmentTransRecord.newInstance());
+            }
+                break;
+            case PAGE_ADDRESS_BOOK:
+            {
+                navigateTo(FragmentAddressBook.newInstance(false));
+            }
+                break;
+
+            case PAGE_ADDRESS_BOOK_CHOOSE:
+            {
+                navigateTo(FragmentAddressBook.newInstance(true));
+            }
+                break;
+            case PAGE_TRANS_RECORD_DETAIL:
+            {
+                setTitleBarBackgroundColor(getResources().getColor(R.color.bg_base2));
+                navigateTo(FragmentTransRecordDetail.newInstance());
             }
                 break;
 

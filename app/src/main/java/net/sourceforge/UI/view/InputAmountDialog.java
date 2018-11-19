@@ -12,7 +12,7 @@ import android.widget.EditText;
 
 import com.chain.wallet.spd.R;
 
-public class InputAmountDialog extends Dialog implements View.OnClickListener{
+public class InputAmountDialog extends Dialog implements View.OnClickListener {
 
     public IOnProtocolDialogClickListener iOnProtocolDialogClickListener;
 
@@ -38,8 +38,7 @@ public class InputAmountDialog extends Dialog implements View.OnClickListener{
         initDialogAttrs(context);
     }
 
-    protected void initDialogAttrs(Context paramContext)
-    {
+    protected void initDialogAttrs(Context paramContext) {
         setCanceledOnTouchOutside(false);
         getWindow().getAttributes().width = ViewGroup.LayoutParams.WRAP_CONTENT;
         getWindow().getAttributes().height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -47,7 +46,7 @@ public class InputAmountDialog extends Dialog implements View.OnClickListener{
         getWindow().setGravity(Gravity.CENTER_VERTICAL);
         getWindow().setAttributes(getWindow().getAttributes());
         if ((paramContext instanceof Activity)) {
-            setOwnerActivity((Activity)paramContext);
+            setOwnerActivity((Activity) paramContext);
         }
         setContentView(R.layout.layout_dialog_input_amount);
 
@@ -62,15 +61,22 @@ public class InputAmountDialog extends Dialog implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_confirm:
-            case R.id.btn_cancel:
-            {
+            case R.id.btn_confirm: {
+
                 if (iOnProtocolDialogClickListener != null) {
                     String count = et_count.getText().toString();
                     iOnProtocolDialogClickListener.onClickBtn(true, count);
                 }
+
             }
-                break;
+            break;
+            case R.id.btn_cancel: {
+                if (iOnProtocolDialogClickListener != null) {
+                    String count = et_count.getText().toString();
+                    iOnProtocolDialogClickListener.onClickBtn(false, count);
+                }
+            }
+            break;
         }
     }
 

@@ -4,15 +4,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.chain.wallet.spd.R;
 
+import net.sourceforge.UI.view.AddAddressDialog;
 import net.sourceforge.base.FragmentBase;
 import net.sourceforge.commons.log.SWLog;
+import net.sourceforge.utils.DMG;
 
 import org.greenrobot.eventbus.EventBus;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -26,6 +31,8 @@ public class FragmentTransRecordDetail extends FragmentBase {
     private View curView = null;
 
     private Unbinder unbinder;
+
+    private AddAddressDialog addAddressDialog;
 
     public static FragmentTransRecordDetail newInstance() {
         FragmentTransRecordDetail f = new FragmentTransRecordDetail();
@@ -68,5 +75,18 @@ public class FragmentTransRecordDetail extends FragmentBase {
         }
     }
 
+    @OnClick(R.id.ib_add_address)
+    public void onClickAddAddress() {
+        addAddressDialog = new AddAddressDialog(mContext, new AddAddressDialog.IOnProtocolDialogClickListener() {
+            @Override
+            public void onClickBtn(boolean isConform) {
+                addAddressDialog.dismiss();
+                if (isConform) {
+                    DMG.showNomalShortToast("添加成功");
+                }
+            }
+        });
+        addAddressDialog.show();
+    }
 
 }

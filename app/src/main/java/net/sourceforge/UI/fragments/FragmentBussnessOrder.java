@@ -71,7 +71,7 @@ public class FragmentBussnessOrder extends FragmentBase {
         rl_recycler.setAdapter(adapter = new BussnessOrderAdapter(R.layout.item_bussness_order));
 
         List<BussnessModel> models = new ArrayList<>();
-        models.add(new BussnessModel());
+        models.add(new BussnessModel(1, "NO10024", "10", "00:15:00", "0.88", "20000.0000", "20000.0000", "1760.00"));
 //        models.add(new BussnessModel());
 //        models.add(new BussnessModel());
 //        models.add(new TransRecordModel("0x0543b4e1186…4d9f72",0, "-59.12SPDT", 1));

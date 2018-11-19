@@ -18,9 +18,6 @@ public class BussnessModel {
 
     public String totalCount;
 
-    public BussnessModel() {
-
-    }
 
     public BussnessModel(int coinType, String orderNum, String dealNum, String tranTime, String count, String min, String balance, String totalCount) {
         this.coinType = coinType;

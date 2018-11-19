@@ -1,21 +1,30 @@
 package net.sourceforge.UI.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.chain.wallet.spd.R;
 
+import net.sourceforge.UI.activity.ActivityDetail;
 import net.sourceforge.UI.view.InputAmountDialog;
 import net.sourceforge.UI.view.TransferDialog1;
 import net.sourceforge.UI.view.TransferDialog2;
 import net.sourceforge.base.FragmentBase;
 import net.sourceforge.commons.log.SWLog;
+import net.sourceforge.http.model.AddressModel;
+import net.sourceforge.manager.JumpMethod;
 import net.sourceforge.utils.DMG;
 
 import org.greenrobot.eventbus.EventBus;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -35,6 +44,15 @@ public class FragmentTransfer extends FragmentBase {
     private TransferDialog1 transferDialog1;
 
     private TransferDialog2 transferDialog2;
+
+    @BindView(R.id.tv_address)
+    public EditText tv_address;
+
+    @BindView(R.id.tv_money)
+    public EditText tv_money;
+
+    @BindView(R.id.tv_remark)
+    public EditText tv_remark;
 
     public static FragmentTransfer newInstance() {
         FragmentTransfer f = new FragmentTransfer();
@@ -79,6 +97,19 @@ public class FragmentTransfer extends FragmentBase {
 
     @OnClick(R.id.bt_next)
     public void onClickNext() {
+        String address = tv_address.getText().toString();
+        String money = tv_money.getText().toString();
+        String remark = tv_remark.getText().toString();
+
+        if (TextUtils.isEmpty(address)) {
+            DMG.showNomalShortToast("请输入转账地址");
+            return;
+        }
+        if (TextUtils.isEmpty(money)) {
+            DMG.showNomalShortToast("请输入转账金额");
+            return;
+        }
+
         transferDialog1 = new TransferDialog1(getActivity(), new TransferDialog1.IOnProtocolDialogClickListener() {
             @Override
             public void onClickBtn(boolean isConform) {
@@ -88,6 +119,7 @@ public class FragmentTransfer extends FragmentBase {
                 }
             }
         });
+        transferDialog1.setData(address, money, remark);
         transferDialog1.show();
     }
 
@@ -105,5 +137,25 @@ public class FragmentTransfer extends FragmentBase {
         transferDialog2.show();
     }
 
+    @OnClick(R.id.iv_choose)
+    public void onClickChooseAddress() {
+        Intent intent = new Intent(getActivity(), ActivityDetail.class);
+        intent.putExtra(ActivityDetail.PARAM_TYPE_TITLE,"选择地址");
+        intent.putExtra(ActivityDetail.PARAM_TYPE_CONTENT,ActivityDetail.PAGE_ADDRESS_BOOK_CHOOSE);
+        startActivityForResult(intent, 1);
+        ((Activity)mContext).overridePendingTransition(R.anim.fragment_slide_right_enter,
+                R.anim.fragment_slide_left_exit);
+    }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 1) {
+            AddressModel addressModel = (AddressModel) data.getSerializableExtra("model");
+            if (addressModel != null) {
+                tv_address.setText(addressModel.address);
+            }
+        }
+    }
 }

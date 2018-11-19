@@ -29,8 +29,10 @@ import net.sourceforge.UI.activity.ActivityMain;
 import net.sourceforge.UI.activity.CaptureQRActivity;
 import net.sourceforge.UI.adapter.HomeAssertsAdapter;
 import net.sourceforge.UI.adapter.HomeFeatureAdapter;
+import net.sourceforge.UI.view.InputWalletPasswordDialog;
 import net.sourceforge.base.FragmentBase;
 import net.sourceforge.commons.log.SWLog;
+import net.sourceforge.external.risenumber.RiseNumberTextView;
 import net.sourceforge.http.model.HomeAssertModel;
 import net.sourceforge.http.model.HomeFeatureModel;
 import net.sourceforge.http.model.WalletModel;
@@ -78,7 +80,7 @@ public class FragmentWallet extends FragmentBase {
     public TextView tv_address;
 
     @BindView(R.id.tv_count)
-    public TextView tv_count;
+    public RiseNumberTextView tv_count;
 
     @BindView(R.id.tv_count_cny)
     public TextView tv_count_cny;
@@ -90,6 +92,8 @@ public class FragmentWallet extends FragmentBase {
     public static final int REQ_CODE_PERMISSION = 0x1111;
 
     public static final int REQUEST_CODE = 0x1112;
+
+    private InputWalletPasswordDialog inputWalletPasswordDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -111,8 +115,9 @@ public class FragmentWallet extends FragmentBase {
         if (walletModel != null) {
             tv_username.setText(walletModel.walletId);
             tv_address.setText(walletModel.address);
-            tv_count.setText(String.valueOf(walletModel.balance));
-            tv_count_cny.setText("≈" + String.valueOf(walletModel.balance*2) + " CNY");
+            tv_count.withNumber(walletModel.balance).start();
+//            tv_count.setText(String.valueOf(walletModel.balance));
+            tv_count_cny.setText("≈" + String.format("%.3f", walletModel.balance_cny) + " CNY");
         }
     }
 
@@ -152,7 +157,22 @@ public class FragmentWallet extends FragmentBase {
                     case 2:
                     {
                         //付款
-                        JumpMethod.jumpToDetail(mContext, "付款", ActivityDetail.PAGE_PAY);
+                        getPasswordDialog().setOnProtocolDialogClickListener(new InputWalletPasswordDialog.IOnProtocolDialogClickListener() {
+                            @Override
+                            public void onClickBtn(boolean isConform, String password) {
+                                getPasswordDialog().dismiss();
+                                WalletModel walletModel = WalletManager.getInstance().getCurrentWallet();
+                                if (isConform) {
+                                    if (walletModel.walletPassowrd.equals(password)) {
+                                        JumpMethod.jumpToDetail(mContext, "付款", ActivityDetail.PAGE_PAY);
+                                    } else {
+                                        DMG.showNomalShortToast("密码错误，请重新输入");
+                                    }
+                                }
+                            }
+                        });
+                        getPasswordDialog().show();
+
                     }
                     break;
                     case 3:
@@ -179,9 +199,9 @@ public class FragmentWallet extends FragmentBase {
         });
 
         List<HomeAssertModel> homeAssertModels = new ArrayList<>();
-        homeAssertModels.add(new HomeAssertModel("ETH", R.drawable.ic_home_3,"100000", "2000000"));
-        homeAssertModels.add(new HomeAssertModel("BTC", R.drawable.ic_home_3,"200000", "3000000"));
-        homeAssertModels.add(new HomeAssertModel("USDT", R.drawable.ic_home_3,"300000", "4000000"));
+        homeAssertModels.add(new HomeAssertModel("ETH", R.drawable.ic_home_3,"460.0000", "681490.00"));
+        homeAssertModels.add(new HomeAssertModel("BTC", R.drawable.ic_home_3,"1.0162", "42680.40"));
+        homeAssertModels.add(new HomeAssertModel("USDT", R.drawable.ic_home_3,"325.0000", "1950.00"));
         homeAssertModels.add(new HomeAssertModel("", R.drawable.ic_home_3,"300000", "4000000"));
 //        homeAssertModels.add(new HomeAssertModel("", R.drawable.ic_home_3,"300000", "4000000"));
 
@@ -242,7 +262,7 @@ public class FragmentWallet extends FragmentBase {
                 }
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     String result = bundle.getString(CodeUtils.RESULT_STRING);
-                    Toast.makeText(getActivity(), "解析结果:" + result, Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getActivity(), "解析结果:" + result, Toast.LENGTH_LONG).show();
 //                    et_address.setText(result);
                     checkScanResult(result);
 
@@ -260,9 +280,31 @@ public class FragmentWallet extends FragmentBase {
             String[] strings = scanResult.split(":");
             if (strings!=null && strings.length >0) {
                 if ("shoukuan".equalsIgnoreCase(strings[0])) {
-
+                    float value = Float.parseFloat(strings[1]);
+                    WalletModel walletModel =  WalletManager.getInstance().getCurrentWallet();
+                    if (walletModel.balance_cny <value) {
+                        DMG.showNomalShortToast("余额不足，付款失败");
+                        return;
+                    }
+                    walletModel.balance = walletModel.balance-value;
+                    walletModel.balance_cny = walletModel.balance_cny - value;
+                    WalletManager.getInstance().updateWalletBalance(walletModel);
+                    setData();
+                    DMG.showNomalShortToast("付款成功");
+                } else if ("fukuan".equalsIgnoreCase(strings[0])) {
+                    float value = Float.parseFloat(strings[1]);
+                    WalletModel walletModel =  WalletManager.getInstance().getCurrentWallet();
+                    walletModel.balance = walletModel.balance+value;
+                    walletModel.balance_cny = walletModel.balance_cny + value;
+                    WalletManager.getInstance().updateWalletBalance(walletModel);
+                    setData();
+                    DMG.showNomalShortToast("收款成功");
                 }
+            } else {
+                DMG.showNomalShortToast("无法识别的二维码");
             }
+        } else {
+            DMG.showNomalShortToast("无法识别的二维码");
         }
     }
 
@@ -283,5 +325,18 @@ public class FragmentWallet extends FragmentBase {
             tv_count.setTransformationMethod(PasswordTransformationMethod.getInstance());
             tv_count_cny.setTransformationMethod(PasswordTransformationMethod.getInstance());
         }
+    }
+
+    private InputWalletPasswordDialog getPasswordDialog() {
+        if (inputWalletPasswordDialog ==null) {
+            inputWalletPasswordDialog = new InputWalletPasswordDialog(mContext, new InputWalletPasswordDialog.IOnProtocolDialogClickListener() {
+                @Override
+                public void onClickBtn(boolean isConform, String password) {
+
+                }
+            });
+        }
+        inputWalletPasswordDialog.resetStatu();
+        return inputWalletPasswordDialog;
     }
 }

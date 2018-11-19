@@ -21,6 +21,8 @@ public class FinanncialItemAdapter extends BaseQuickAdapter<FinanncialItemModel,
     @Override
     protected void convert(BaseViewHolder helper, FinanncialItemModel item) {
 //        helper.addOnClickListener(R.id.bt_buy);
+        helper.setText(R.id.tv_text1, item.text1);
+        helper.setText(R.id.tv_text2, item.text2);
     }
 
 

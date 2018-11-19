@@ -144,7 +144,8 @@ public class ActivityCreateAccount extends ActivityBase {
                 walletModel.pubKey = keyPairs.getPubkey();
                 walletModel.bcuId = keyPairs.getBcuid();
                 walletModel.mnemonicStr = mnemonicStr;
-                walletModel.balance = 10000;
+                walletModel.balance = 629502.1200f;
+                walletModel.balance_cny = 559123.783f;
 
                 KeyStoreUtils keyStoreHelper = new KeyStoreUtils(encAPI);
                 KeyStoreFile oKeyStoreFile = keyStoreHelper.generate(keyPairs, pwd);
@@ -157,6 +158,7 @@ public class ActivityCreateAccount extends ActivityBase {
 //                Oentity.KeyStoreValue oKeyStoreValue = keyStoreHelperB.getKeyStore(keyStoreFileStr, pwd);
 
                 WalletManager.getInstance().addWallet(walletModel);
+                WalletManager.getInstance().setCurrentWallet(walletModel.pubKey);
                 EventBus.getDefault().post(new EventAction(null, EventAction.EventKey.KEY_WALLET_CREATE_SUCESS));
                 createSuccess(walletModel);
             }

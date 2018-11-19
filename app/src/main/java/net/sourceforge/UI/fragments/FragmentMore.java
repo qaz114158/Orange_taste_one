@@ -12,10 +12,14 @@ import com.chain.wallet.spd.R;
 
 import net.sourceforge.UI.activity.ActivityDetail;
 import net.sourceforge.UI.adapter.HomeFeatureAdapter;
+import net.sourceforge.UI.view.InputWalletPasswordDialog;
 import net.sourceforge.base.FragmentBase;
 import net.sourceforge.commons.log.SWLog;
 import net.sourceforge.http.model.HomeFeatureModel;
+import net.sourceforge.http.model.WalletModel;
 import net.sourceforge.manager.JumpMethod;
+import net.sourceforge.manager.WalletManager;
+import net.sourceforge.utils.DMG;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -42,6 +46,8 @@ public class FragmentMore extends FragmentBase {
     public RecyclerView rl_home_features;
 
     private HomeFeatureAdapter homeFeatureAdapter;
+
+    private InputWalletPasswordDialog inputWalletPasswordDialog;
 
     public static FragmentMore newInstance() {
         FragmentMore f = new FragmentMore();
@@ -73,7 +79,7 @@ public class FragmentMore extends FragmentBase {
         models.add(new HomeFeatureModel("付款", R.drawable.ic_home_7));
         models.add(new HomeFeatureModel("买卖", R.drawable.ic_home_6));
         models.add(new HomeFeatureModel("理财", R.drawable.ic_home_5));
-        models.add(new HomeFeatureModel("更多", R.drawable.ic_home_2));
+        models.add(new HomeFeatureModel("交易记录", R.drawable.ic_home_2));
         homeFeatureAdapter.setNewData(models);
         homeFeatureAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -94,7 +100,23 @@ public class FragmentMore extends FragmentBase {
                     case 2:
                     {
                         //付款
-                        JumpMethod.jumpToDetail(mContext, "付款", ActivityDetail.PAGE_PAY);
+//                        JumpMethod.jumpToDetail(mContext, "付款", ActivityDetail.PAGE_PAY);
+
+                        getPasswordDialog().setOnProtocolDialogClickListener(new InputWalletPasswordDialog.IOnProtocolDialogClickListener() {
+                            @Override
+                            public void onClickBtn(boolean isConform, String password) {
+                                getPasswordDialog().dismiss();
+                                WalletModel walletModel = WalletManager.getInstance().getCurrentWallet();
+                                if (isConform) {
+                                    if (walletModel.walletPassowrd.equals(password)) {
+                                        JumpMethod.jumpToDetail(mContext, "付款", ActivityDetail.PAGE_PAY);
+                                    } else {
+                                        DMG.showNomalShortToast("密码错误，请重新输入");
+                                    }
+                                }
+                            }
+                        });
+                        getPasswordDialog().show();
                     }
                     break;
                     case 3:
@@ -144,5 +166,17 @@ public class FragmentMore extends FragmentBase {
         }
     }
 
+    private InputWalletPasswordDialog getPasswordDialog() {
+        if (inputWalletPasswordDialog ==null) {
+            inputWalletPasswordDialog = new InputWalletPasswordDialog(mContext, new InputWalletPasswordDialog.IOnProtocolDialogClickListener() {
+                @Override
+                public void onClickBtn(boolean isConform, String password) {
+
+                }
+            });
+        }
+        inputWalletPasswordDialog.resetStatu();
+        return inputWalletPasswordDialog;
+    }
 
 }

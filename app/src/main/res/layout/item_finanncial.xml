@@ -24,6 +24,7 @@
             android:textSize="20sp"
             android:textColor="#61ab0a"
             android:text="31.45%"
+            android:id="@+id/tv_text1"
 
             />
         <TextView
@@ -51,6 +52,7 @@
             android:textSize="13sp"
             android:textColor="@color/white"
             android:text="BTC趋势策略精选180天"
+            android:id="@+id/tv_text2"
             />
 
         <LinearLayout

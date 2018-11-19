@@ -19,7 +19,7 @@ public class BussnessOrderAdapter extends BaseQuickAdapter<BussnessModel, BaseVi
 
     @Override
     protected void convert(BaseViewHolder helper, BussnessModel item) {
-        helper.addOnClickListener(R.id.bt_pay);
+//        helper.addOnClickListener(R.id.bt_pay);
     }
 
 

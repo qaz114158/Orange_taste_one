@@ -30,6 +30,13 @@ public class UserMenuAdapter2 extends BaseQuickAdapter<UserMenu, BaseViewHolder>
         } else {
             helper.getView(R.id.v_divider).setVisibility(View.VISIBLE);
         }
+
+        if (helper.getLayoutPosition() == 0) {
+            helper.getView(R.id.tv_notice1).setVisibility(View.VISIBLE);
+            helper.setText(R.id.tv_notice1, "跟随系统");
+        } else {
+            helper.getView(R.id.tv_notice1).setVisibility(View.GONE);
+        }
     }
 
 

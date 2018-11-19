@@ -26,6 +26,7 @@
         android:textColor="@color/c_text1"
         android:paddingLeft="5dp"
         android:id="@+id/et_count"
+        android:inputType="numberDecimal"
         />
 
     <View

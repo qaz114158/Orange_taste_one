@@ -54,8 +54,15 @@ public class BannerPageAdapter extends PagerAdapter {
 //		Log.i("PagerAdapter" , "method instantiateItem be calling" );
 		View v = LayoutInflater.from(ctx).inflate(R.layout.item_ad_pager , null);
 		ImageView img = (ImageView) v.findViewById(R.id.iv_image);
-		img.setImageResource(R.drawable.ic_tmp_ad);
+
 		img.setScaleType(ImageView.ScaleType.CENTER_CROP);
+		if (position == 0) {
+			img.setImageResource(R.drawable.ic_app_ad1);
+		} else if (position == 1){
+			img.setImageResource(R.drawable.ic_app_ad2);
+		} else if (position == 2){
+			img.setImageResource(R.drawable.ic_app_ad3);
+		}
 //		if(position+1 == pagerData.size()) {
 //			ImageButton ib = (ImageButton)v.findViewById(R.id.ib);
 //			ib.setVisibility(View.VISIBLE);

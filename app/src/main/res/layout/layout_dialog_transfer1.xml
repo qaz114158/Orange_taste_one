@@ -39,6 +39,7 @@
             android:textSize="12sp"
             android:textColor="@color/black"
             android:gravity="right"
+            android:id="@+id/tv_money"
             />
 
     </LinearLayout>
@@ -76,6 +77,7 @@
             android:textSize="12sp"
             android:textColor="@color/black"
             android:gravity="right"
+            android:id="@+id/tv_address"
             />
 
     </LinearLayout>
@@ -113,6 +115,7 @@
             android:textSize="12sp"
             android:textColor="@color/black"
             android:gravity="right"
+            android:id="@+id/tv_remark"
             />
 
     </LinearLayout>

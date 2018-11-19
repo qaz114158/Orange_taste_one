@@ -20,6 +20,13 @@ public class BussnessSellAdapter extends BaseQuickAdapter<BussnessModel, BaseVie
     @Override
     protected void convert(BaseViewHolder helper, BussnessModel item) {
         helper.addOnClickListener(R.id.bt_sell);
+
+        helper.setText(R.id.tv_text1, "单号 " + item.orderNum);
+        helper.setText(R.id.tv_text2, "成交量：" + item.dealNum);
+        helper.setText(R.id.tv_text3, item.tranTime);
+        helper.setText(R.id.tv_text4, item.count + "CNY");
+        helper.setText(R.id.tv_text5, "最小交易量："+item.min +" SPDT");
+        helper.setText(R.id.tv_text6, "已成交量："+item.balance+" SPDT");
     }
 
 

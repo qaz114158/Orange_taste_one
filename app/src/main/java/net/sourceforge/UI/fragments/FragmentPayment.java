@@ -54,7 +54,7 @@ public class FragmentPayment extends FragmentBase {
     }
 
     private void initRes() {
-        Bitmap mBitmap = CodeUtils.createImage("fukuan", 400, 400, null);
+        Bitmap mBitmap = CodeUtils.createImage("fukuan:1000", 400, 400, null);
         iv_qr_image.setImageBitmap(mBitmap);
     }
 

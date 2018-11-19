@@ -17,6 +17,7 @@ import net.sourceforge.UI.view.BussnessSellDialog;
 import net.sourceforge.base.FragmentBase;
 import net.sourceforge.commons.log.SWLog;
 import net.sourceforge.http.model.BussnessModel;
+import net.sourceforge.utils.DMG;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -72,8 +73,8 @@ public class FragmentBussnessSell extends FragmentBase {
         rl_recycler.setAdapter(adapter = new BussnessSellAdapter(R.layout.item_bussness_sell));
 
         List<BussnessModel> models = new ArrayList<>();
-        models.add(new BussnessModel());
-        models.add(new BussnessModel());
+        models.add(new BussnessModel(1, "NO10001", "5", "10/27/2019", "0.78", "2000.0000", "0.0000", "20000.0000"));
+        models.add(new BussnessModel(1, "NO10002", "20", "5/11/2019", "0.88", "1000.0000", "5000.0000", "20000.0000"));
 //        models.add(new BussnessModel());
 //        models.add(new TransRecordModel("0x0543b4e1186…4d9f72",0, "-59.12SPDT", 1));
 //        models.add(new TransRecordModel("0x0543b4e1186…4d9f72",0, "-390.00SPDT", 1));
@@ -124,6 +125,9 @@ public class FragmentBussnessSell extends FragmentBase {
             @Override
             public void onClickBtn(boolean isConform) {
                 dialog.dismiss();
+                if (isConform) {
+                    DMG.showNomalShortToast("卖出成功");
+                }
             }
         });
         dialog.show();

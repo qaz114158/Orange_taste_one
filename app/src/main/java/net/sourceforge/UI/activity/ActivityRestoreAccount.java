@@ -114,6 +114,7 @@ public class ActivityRestoreAccount extends ActivityBase {
                         return;
                     }
                     WalletManager.getInstance().addWallet(walletModel);
+                    WalletManager.getInstance().setCurrentWallet(walletModel.pubKey);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

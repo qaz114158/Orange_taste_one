@@ -7,12 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chain.wallet.spd.R;
 
+import net.sourceforge.UI.activity.ActivityDetail;
 import net.sourceforge.UI.adapter.TransRecordAdapter;
 import net.sourceforge.base.FragmentBase;
 import net.sourceforge.commons.log.SWLog;
 import net.sourceforge.http.model.TransRecordModel;
+import net.sourceforge.manager.JumpMethod;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -74,6 +77,12 @@ public class FragmentTransAll extends FragmentBase {
         models.add(new TransRecordModel("0x0543b4e1186…4d9f72",2, "-369.00SPDT", 1));
 
         adapter.setNewData(models);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                JumpMethod.jumpToDetail(mContext, "", ActivityDetail.PAGE_TRANS_RECORD_DETAIL);
+            }
+        });
     }
 
     @Override

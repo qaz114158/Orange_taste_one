@@ -29,7 +29,13 @@ public class WalletModel implements Serializable{
      */
     public int importFrom = 0;
 
-    public int balance;
+    public float balance;
 
+    public float balance_cny;
+
+    public String payPassword;
+
+    //0未认证
+    public int auth;
 
 }

@@ -4,7 +4,7 @@ package net.sourceforge.constants;
 public class Constants {
 
 	
-	public static final String fileDir = "GuitarChina";// app sd卡缓存目录
+	public static final String fileDir = "SPDT";// app sd卡缓存目录
 	
 	public static final String sys_name = "camera";
 

@@ -18,6 +18,7 @@ import net.sourceforge.base.FragmentBase;
 import net.sourceforge.commons.log.SWLog;
 import net.sourceforge.http.model.BussnessModel;
 import net.sourceforge.http.model.TransRecordModel;
+import net.sourceforge.utils.DMG;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -73,9 +74,9 @@ public class FragmentBussnessBuy extends FragmentBase {
         rl_recycler.setAdapter(adapter = new BussnessBuyAdapter(R.layout.item_bussness_buy));
 
         List<BussnessModel> models = new ArrayList<>();
-        models.add(new BussnessModel());
-        models.add(new BussnessModel());
-        models.add(new BussnessModel());
+        models.add(new BussnessModel(1, "NO10061", "0", "5/11/2019", "0.88", "20000.0000", "20000.0000", "20000.0000"));
+        models.add(new BussnessModel(1, "NO10062", "10", "7/8/2019", "0.91", "10000.0000", "30000.0000", "30000.0000"));
+        models.add(new BussnessModel(1, "NO10063", "231", "10/15/2019", "1.88", "20000.0000", "70000.0000", "100000.0000"));
 //        models.add(new TransRecordModel("0x0543b4e1186…4d9f72",0, "-59.12SPDT", 1));
 //        models.add(new TransRecordModel("0x0543b4e1186…4d9f72",0, "-390.00SPDT", 1));
 //        models.add(new TransRecordModel("0x0543b4e1186…4d9f72",0, "+12000SPDT", 2));
@@ -126,6 +127,10 @@ public class FragmentBussnessBuy extends FragmentBase {
             @Override
             public void onClickBtn(boolean isConform) {
                 dialog.dismiss();
+                if (isConform) {
+                    DMG.showNomalShortToast("购买成功");
+                }
+
             }
         });
         dialog.show();

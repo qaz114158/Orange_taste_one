@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chain.wallet.spd.R;
@@ -15,6 +16,7 @@ import net.sourceforge.UI.activity.ActivityDetail;
 import net.sourceforge.UI.adapter.UserMenuAdapter;
 import net.sourceforge.UI.adapter.UserMenuAdapter2;
 import net.sourceforge.UI.view.ChooseLanuageDialog;
+import net.sourceforge.UI.view.InputWalletPasswordDialog;
 import net.sourceforge.base.FragmentBase;
 import net.sourceforge.commons.log.SWLog;
 import net.sourceforge.http.model.UserMenu;
@@ -31,6 +33,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -61,6 +64,14 @@ public class FragmentMe extends FragmentBase {
 
     private ChooseLanuageDialog chooseLanuageDialog;
 
+    @BindView(R.id.tv_username)
+    public TextView tv_username;
+
+    @BindView(R.id.tv_address)
+    public TextView tv_address;
+
+    private InputWalletPasswordDialog inputWalletPasswordDialog;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,7 +83,16 @@ public class FragmentMe extends FragmentBase {
         curView = inflater.inflate(R.layout.layout_me, null);
         unbinder = ButterKnife.bind(this, curView);
         initRes();
+        setData();
         return curView;
+    }
+
+    private void setData() {
+        WalletModel walletModel = WalletManager.getInstance().getCurrentWallet();
+        if (walletModel != null) {
+            tv_username.setText(walletModel.walletId);
+            tv_address.setText(walletModel.address);
+        }
     }
 
     private void initRes() {
@@ -101,7 +121,21 @@ public class FragmentMe extends FragmentBase {
                     case 0:
                     {
                         //设置交易密码
-                        JumpMethod.jumpToDetail(mContext, "设置交易密码", ActivityDetail.PAGE_SET_PAY_PASSWORD);
+                        getPasswordDialog().setOnProtocolDialogClickListener(new InputWalletPasswordDialog.IOnProtocolDialogClickListener() {
+                            @Override
+                            public void onClickBtn(boolean isConform, String password) {
+                                getPasswordDialog().dismiss();
+                                WalletModel walletModel = WalletManager.getInstance().getCurrentWallet();
+                                if (isConform) {
+                                    if (walletModel.walletPassowrd.equals(password)) {
+                                        JumpMethod.jumpToDetail(mContext, "设置交易密码", ActivityDetail.PAGE_SET_PAY_PASSWORD);
+                                    } else {
+                                        DMG.showNomalShortToast("密码错误，请重新输入");
+                                    }
+                                }
+                            }
+                        });
+                        getPasswordDialog().show();
                     }
                         break;
                     case 1:
@@ -125,10 +159,21 @@ public class FragmentMe extends FragmentBase {
                     case 4:
                     {
                         //备份助记词
-                        WalletModel walletModel = new WalletModel();
-                        walletModel.pubKey = "wuuqgeiqwiueghqiwugeiq";
-                        walletModel.mnemonicStr = "gossip pen october swallow drastic lyrics hundred true stone must tackle gather";
-                        JumpMethod.jumpToBackupMnemonicStepOne(mContext,walletModel );
+                        getPasswordDialog().setOnProtocolDialogClickListener(new InputWalletPasswordDialog.IOnProtocolDialogClickListener() {
+                            @Override
+                            public void onClickBtn(boolean isConform, String password) {
+                                getPasswordDialog().dismiss();
+                                WalletModel walletModel = WalletManager.getInstance().getCurrentWallet();
+                                if (isConform) {
+                                    if (walletModel.walletPassowrd.equals(password)) {
+                                        JumpMethod.jumpToBackupMnemonicStepOne(mContext,walletModel);
+                                    } else {
+                                        DMG.showNomalShortToast("密码错误，请重新输入");
+                                    }
+                                }
+                            }
+                        });
+                        getPasswordDialog().show();
                     }
                     break;
                 }
@@ -180,6 +225,8 @@ public class FragmentMe extends FragmentBase {
     @Override
     public void onResume() {
         super.onResume();
+        setData();
+        userMenuAdapter1.notifyDataSetChanged();
     }
 
     @Override
@@ -210,6 +257,25 @@ public class FragmentMe extends FragmentBase {
             });
         }
         chooseLanuageDialog.show();
+    }
+
+    @OnClick(R.id.ib_address_book)
+    public void onClickBookAddress() {
+        JumpMethod.jumpToDetail(mContext, "地址本", ActivityDetail.PAGE_ADDRESS_BOOK);
+    }
+
+
+    private InputWalletPasswordDialog getPasswordDialog() {
+        if (inputWalletPasswordDialog ==null) {
+            inputWalletPasswordDialog = new InputWalletPasswordDialog(mContext, new InputWalletPasswordDialog.IOnProtocolDialogClickListener() {
+                @Override
+                public void onClickBtn(boolean isConform, String password) {
+
+                }
+            });
+        }
+        inputWalletPasswordDialog.resetStatu();
+        return inputWalletPasswordDialog;
     }
 
 }

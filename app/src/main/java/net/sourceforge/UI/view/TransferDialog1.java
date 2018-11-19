@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.chain.wallet.spd.R;
 
@@ -18,6 +19,10 @@ public class TransferDialog1 extends Dialog implements View.OnClickListener{
     private CheckBox cb_aggrement;
 
     private Button bt_continue;
+
+    private TextView tv_money;
+    private TextView tv_address;
+    private TextView tv_remark;
 
     public TransferDialog1(Context context, IOnProtocolDialogClickListener iOnProtocolDialogClickListener) {
         super(context, com.terry.tcdialoglibrary.R.style.CommonDialog);
@@ -52,6 +57,17 @@ public class TransferDialog1 extends Dialog implements View.OnClickListener{
         btn_cancel.setOnClickListener(this);
         Button btn_confirm = findViewById(R.id.btn_confirm);
         btn_confirm.setOnClickListener(this);
+
+        tv_money = findViewById(R.id.tv_money);
+        tv_address = findViewById(R.id.tv_address);
+        tv_remark = findViewById(R.id.tv_remark);
+
+    }
+
+    public void setData(String address, String money, String remark) {
+        tv_money.setText(money + " SPDT");
+        tv_address.setText(address);
+        tv_remark.setText(remark);
     }
 
     @Override

@@ -3,6 +3,8 @@ package net.sourceforge.utils;
 import net.sourceforge.http.model.BaseResponse;
 import net.sourceforge.manager.UserManager;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,6 +13,8 @@ import java.util.regex.Pattern;
  */
 
 public class TextUtils {
+
+    private static DecimalFormat dfs = null;
 
     /**
      * utf-8 转换成 unicode
@@ -163,6 +167,17 @@ public class TextUtils {
             return false;
         }
         return true;
+    }
+
+
+
+    public static DecimalFormat format(String pattern) {
+        if (dfs == null) {
+            dfs = new DecimalFormat();
+        }
+        dfs.setRoundingMode(RoundingMode.HALF_DOWN);
+        dfs.applyPattern(pattern);
+        return dfs;
     }
 
 }

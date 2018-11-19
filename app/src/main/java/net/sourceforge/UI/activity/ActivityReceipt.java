@@ -79,7 +79,7 @@ public class ActivityReceipt extends ActivityBase {
             public void onClickBtn(boolean isConform, String count) {
                 if (isConform) {
                     if (net.sourceforge.utils.TextUtils.isNumeric(count)) {
-                        tv_in_count.setText(count);
+                        tv_in_count.setText(count + " SPDT");
                         Bitmap mBitmap = CodeUtils.createImage("shoukuan:"+ count, 400, 400, null);
                         iv_qr_image.setImageBitmap(mBitmap);
                     } else {

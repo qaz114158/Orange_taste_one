@@ -1,17 +1,23 @@
 package net.sourceforge.UI.fragments;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.chain.wallet.spd.R;
 
 import net.sourceforge.base.FragmentBase;
 import net.sourceforge.commons.log.SWLog;
+import net.sourceforge.http.model.WalletModel;
+import net.sourceforge.manager.WalletManager;
+import net.sourceforge.utils.DMG;
 
 import org.greenrobot.eventbus.EventBus;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -27,6 +33,15 @@ public class FragmentAuthBase extends FragmentBase {
     private View curView = null;
 
     private Unbinder unbinder;
+
+    @BindView(R.id.et_field1)
+    public EditText et_field1;
+
+    @BindView(R.id.et_field2)
+    public EditText et_field2;
+
+    @BindView(R.id.et_field3)
+    public EditText et_field3;
 
     public static FragmentAuthBase newInstance() {
         FragmentAuthBase f = new FragmentAuthBase();
@@ -76,6 +91,26 @@ public class FragmentAuthBase extends FragmentBase {
 
     @OnClick(R.id.bt_next)
     public void onClickNext() {
+        String username = et_field1.getText().toString();
+        String phone = et_field1.getText().toString();
+        String cardid = et_field1.getText().toString();
+        if (TextUtils.isEmpty(username)) {
+            DMG.showNomalShortToast("请输入姓名");
+            return;
+        }
+        if (TextUtils.isEmpty(phone)) {
+            DMG.showNomalShortToast("请输入手机号码");
+            return;
+        }
+        if (TextUtils.isEmpty(cardid)) {
+            DMG.showNomalShortToast("请输入身份证号码");
+            return;
+        }
+        DMG.showNomalShortToast("已提交认证申请");
+
+        WalletModel walletModel = WalletManager.getInstance().getCurrentWallet();
+        walletModel.auth = 1;
+        WalletManager.getInstance().updateWalletAuth(walletModel);
         getActivity().finish();
     }
 

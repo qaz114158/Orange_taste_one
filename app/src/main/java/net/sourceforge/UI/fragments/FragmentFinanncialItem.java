@@ -68,9 +68,9 @@ public class FragmentFinanncialItem extends FragmentBase {
         rl_recycler.setAdapter(adapter = new FinanncialItemAdapter(R.layout.item_finanncial));
 
         List<FinanncialItemModel> models = new ArrayList<>();
-        models.add(new FinanncialItemModel());
-        models.add(new FinanncialItemModel());
-        models.add(new FinanncialItemModel());
+        models.add(new FinanncialItemModel("31.45%", "BTC趋势策略精选180天"));
+        models.add(new FinanncialItemModel("28.30%", "ETH趋势策略精选90天"));
+        models.add(new FinanncialItemModel("60.85%", "ETH多策略回报型180天"));
 //        models.add(new TransRecordModel("0x0543b4e1186…4d9f72",0, "-59.12SPDT", 1));
 //        models.add(new TransRecordModel("0x0543b4e1186…4d9f72",0, "-390.00SPDT", 1));
 //        models.add(new TransRecordModel("0x0543b4e1186…4d9f72",0, "+12000SPDT", 2));

@@ -10,7 +10,7 @@ android {
         applicationId "com.chain.wallet.spd"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 100
+        versionCode 101
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -92,7 +92,7 @@ dependencies {
 //    api project(':PushSDK')
 
     //图片选择器
-//    implementation 'cn.finalteam.rxgalleryfinal:library:1.1.3'
+    implementation 'cn.finalteam.rxgalleryfinal:library:1.1.3'
 
     //弹出选择框
 //    implementation 'com.longsh:OptionFrame:1.0.0'

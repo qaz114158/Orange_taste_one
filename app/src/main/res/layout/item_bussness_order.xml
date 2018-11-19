@@ -26,10 +26,11 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="单号 NO10061"
+                android:text="单号 NO10024"
                 android:textColor="#999999"
                 android:textSize="12sp"
                 android:gravity="left"
+                android:id="@+id/tv_text1"
                 />
 
             <TextView
@@ -40,6 +41,7 @@
                 android:textColor="#999999"
                 android:textSize="12sp"
                 android:gravity="right"
+                android:id="@+id/tv_text2"
                 />
 
         </LinearLayout>
@@ -51,6 +53,7 @@
             android:textSize="9.3sp"
             android:textColor="#bfbfbf"
             android:layout_marginTop="11dp"
+            android:id="@+id/tv_text3"
             />
 
 
@@ -78,7 +81,7 @@
                 android:background="@color/transparent"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:text="去支付"
+                android:text="已支付，交易处理中"
                 android:textSize="11.3sp"
                 android:textColor="#04ac54"
                 android:gravity="right"

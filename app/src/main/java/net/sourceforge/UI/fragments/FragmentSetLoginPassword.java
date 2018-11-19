@@ -11,6 +11,8 @@ import com.chain.wallet.spd.R;
 
 import net.sourceforge.base.FragmentBase;
 import net.sourceforge.commons.log.SWLog;
+import net.sourceforge.http.model.WalletModel;
+import net.sourceforge.manager.WalletManager;
 import net.sourceforge.utils.DMG;
 
 import org.greenrobot.eventbus.EventBus;
@@ -104,6 +106,9 @@ public class FragmentSetLoginPassword extends FragmentBase {
             DMG.showNomalLongToast("两次输入的密码不一致");
             return;
         }
+        WalletModel walletModel = WalletManager.getInstance().getCurrentWallet();
+        walletModel.walletPassowrd = password;
+        WalletManager.getInstance().updateWalletPassowrd(walletModel);
         DMG.showNomalLongToast("重置成功");
         getActivity().finish();
     }

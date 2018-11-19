@@ -46,7 +46,11 @@ public class WalletManager {
     }
 
     public List<WalletModel> getAllWallets() {
-        return PreferenceHelper.getInstance().getObject(PreferenceHelper.PreferenceKey.KEY_WALLET_LIST, List.class);
+        List<WalletModel> walletModels = PreferenceHelper.getInstance().getObject(PreferenceHelper.PreferenceKey.KEY_WALLET_LIST, List.class);
+        if (walletModels == null) {
+            return walletModels = new ArrayList<>();
+        }
+        return walletModels;
     }
 
     public WalletModel getCurrentWallet() {
@@ -103,6 +107,46 @@ public class WalletManager {
             for (int i=0; i<walletModels.size(); i++) {
                 if (walletModel.pubKey.equals(walletModels.get(i).pubKey)) {
                     walletModels.get(i).walletPassowrd = walletModel.walletPassowrd;
+                    break;
+                }
+            }
+            PreferenceHelper.getInstance().setObject(PreferenceHelper.PreferenceKey.KEY_WALLET_LIST, walletModels);
+        }
+    }
+
+    public void updateWalletPayPassowrd(WalletModel walletModel) {
+        List<WalletModel> walletModels =  PreferenceHelper.getInstance().getObject(PreferenceHelper.PreferenceKey.KEY_WALLET_LIST, List.class);
+        if (walletModels != null && walletModels.size() >0) {
+            for (int i=0; i<walletModels.size(); i++) {
+                if (walletModel.pubKey.equals(walletModels.get(i).pubKey)) {
+                    walletModels.get(i).payPassword = walletModel.payPassword;
+                    break;
+                }
+            }
+            PreferenceHelper.getInstance().setObject(PreferenceHelper.PreferenceKey.KEY_WALLET_LIST, walletModels);
+        }
+    }
+
+    public void updateWalletBalance(WalletModel walletModel) {
+        List<WalletModel> walletModels =  PreferenceHelper.getInstance().getObject(PreferenceHelper.PreferenceKey.KEY_WALLET_LIST, List.class);
+        if (walletModels != null && walletModels.size() >0) {
+            for (int i=0; i<walletModels.size(); i++) {
+                if (walletModel.pubKey.equals(walletModels.get(i).pubKey)) {
+                    walletModels.get(i).balance = walletModel.balance;
+                    walletModels.get(i).balance_cny = walletModel.balance_cny;
+                    break;
+                }
+            }
+            PreferenceHelper.getInstance().setObject(PreferenceHelper.PreferenceKey.KEY_WALLET_LIST, walletModels);
+        }
+    }
+
+    public void updateWalletAuth(WalletModel walletModel) {
+        List<WalletModel> walletModels =  PreferenceHelper.getInstance().getObject(PreferenceHelper.PreferenceKey.KEY_WALLET_LIST, List.class);
+        if (walletModels != null && walletModels.size() >0) {
+            for (int i=0; i<walletModels.size(); i++) {
+                if (walletModel.pubKey.equals(walletModels.get(i).pubKey)) {
+                    walletModels.get(i).auth = walletModel.auth;
                     break;
                 }
             }

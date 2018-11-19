@@ -24,7 +24,7 @@ public class HomeAssertsAdapter extends BaseQuickAdapter<HomeAssertModel, BaseVi
     protected void convert(BaseViewHolder helper, HomeAssertModel item) {
         helper.setText(R.id.tv_name, item.title);
         helper.setText(R.id.tv_count, item.count);
-        helper.setText(R.id.tv_countCNY, item.countCNY);
+        helper.setText(R.id.tv_countCNY, "¥ " + item.countCNY);
 
         if (TextUtils.isEmpty(item.title)) {
             helper.getView(R.id.ll_content).setVisibility(View.GONE);

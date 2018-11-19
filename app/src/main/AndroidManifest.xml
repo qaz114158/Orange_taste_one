@@ -75,6 +75,10 @@
             android:configChanges="locale|screenSize|orientation|screenLayout|keyboardHidden|mcc|mnc|touchscreen|keyboard|navigation|uiMode|smallestScreenSize|layoutDirection|fontScale"
             android:screenOrientation="portrait"></activity>
 
+        <activity
+            android:name="cn.finalteam.rxgalleryfinal.ui.activity.MediaActivity"
+            android:exported="true" />
+
     </application>
 
 </manifest>

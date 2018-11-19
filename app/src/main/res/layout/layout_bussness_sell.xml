@@ -11,8 +11,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
         >
         <LinearLayout
             android:layout_width="0dp"
@@ -34,20 +32,28 @@
                 android:paddingBottom="4dp"
                 />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:orientation="horizontal"
             >
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_home_3"
+                />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ETH"
                 android:textSize="14sp"
                 android:textColor="#9bbbca"
-                android:drawableLeft="@drawable/ic_app_19"
                 android:drawablePadding="5dp"
+                android:layout_marginLeft="5dp"
                 />
         </LinearLayout>
 
@@ -56,15 +62,21 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:orientation="horizontal"
             >
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_app_70"
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="BTC"
                 android:textSize="14sp"
                 android:textColor="#f7931a"
-                android:drawableLeft="@drawable/ic_app_19"
                 android:drawablePadding="5dp"
+                android:layout_marginLeft="5dp"
                 />
         </LinearLayout>
         <LinearLayout
@@ -72,15 +84,21 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:orientation="horizontal"
             >
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_app_71"
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="USDT"
                 android:textSize="14sp"
                 android:textColor="#26a17b"
-                android:drawableLeft="@drawable/ic_app_19"
                 android:drawablePadding="5dp"
+                android:layout_marginLeft="5dp"
                 />
         </LinearLayout>
 

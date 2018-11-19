@@ -49,7 +49,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_app_10"
-                    android:visibility="gone"
+                    android:visibility="visible"
+                    android:clickable="true"
+                    android:id="@+id/iv_choose"
                     />
 
             </LinearLayout>
@@ -61,6 +63,7 @@
                 android:background="@color/transparent"
                 android:textColor="@color/white"
                 android:textSize="10sp"
+                android:id="@+id/tv_address"
                 />
             <View
                 android:layout_width="match_parent"
@@ -135,6 +138,8 @@
                     android:textSize="10sp"
                     android:hint="请输入转账金额"
                     android:textColorHint="#bfbfbf"
+                    android:id="@+id/tv_money"
+                    android:inputType="numberDecimal"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -218,6 +223,7 @@
                 android:background="@color/transparent"
                 android:textColor="@color/white"
                 android:textSize="10sp"
+                android:id="@+id/tv_remark"
                 />
             <View
                 android:layout_width="match_parent"

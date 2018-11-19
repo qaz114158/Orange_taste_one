@@ -58,10 +58,18 @@ public class BussnessSellDialog extends Dialog implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_confirm:
+            {
+                {
+                    if (iOnProtocolDialogClickListener != null) {
+                        iOnProtocolDialogClickListener.onClickBtn(true);
+                    }
+                }
+            }
+                break;
             case R.id.btn_cancel:
             {
                 if (iOnProtocolDialogClickListener != null) {
-                    iOnProtocolDialogClickListener.onClickBtn(true);
+                    iOnProtocolDialogClickListener.onClickBtn(false);
                 }
             }
                 break;
