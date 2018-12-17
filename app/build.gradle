@@ -10,7 +10,7 @@ android {
         applicationId "com.chain.wallet.spd"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 101
+        versionCode 102
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

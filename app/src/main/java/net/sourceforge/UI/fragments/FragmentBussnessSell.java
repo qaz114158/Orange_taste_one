@@ -126,7 +126,7 @@ public class FragmentBussnessSell extends FragmentBase {
             public void onClickBtn(boolean isConform) {
                 dialog.dismiss();
                 if (isConform) {
-                    DMG.showNomalShortToast("卖出成功");
+                    DMG.showNomalShortToast("已提交申请");
                 }
             }
         });

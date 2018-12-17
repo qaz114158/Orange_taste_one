@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_base"
+    android:paddingLeft="23dp"
+    android:paddingRight="23dp"
+    >
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="#bfbfbf"
+        android:gravity="center_horizontal"
+        android:text="*上传材料（转账支付流水记录）"
+        android:layout_marginTop="15dp"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="183dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/shape_gray_cornor16"
+        android:id="@+id/rl_choose_image"
+        >
+        
+        <ImageView
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:src="@drawable/ic_app_79"
+            android:layout_centerInParent="true"
+            />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:id="@+id/iv_image"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="#bfbfbf"
+        android:gravity="center_horizontal"
+        android:text="*文字描述:"
+        android:layout_marginTop="30dp"
+        />
+    
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="127dp"
+        android:background="@drawable/shape_gray_cornor18"
+        android:layout_marginTop="7dp"
+        android:gravity="top|left"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+
+        android:padding="8dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#bfbfbf"
+            android:gravity="center_horizontal"
+            android:text="*联系电话："
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="@color/transparent"
+
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="#bfbfbf"
+                />
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+    <Button
+        android:layout_width="189dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/shape_gray_cornor9"
+        android:text="申诉"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:id="@+id/bt_next"
+        />
+
+</LinearLayout>

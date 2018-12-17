@@ -12,6 +12,7 @@ import com.chain.wallet.spd.R;
 
 import net.sourceforge.UI.fragments.FragmentAboutUS;
 import net.sourceforge.UI.fragments.FragmentAddressBook;
+import net.sourceforge.UI.fragments.FragmentAppeal;
 import net.sourceforge.UI.fragments.FragmentAuth;
 import net.sourceforge.UI.fragments.FragmentAuthBase;
 import net.sourceforge.UI.fragments.FragmentAuthHigh;
@@ -73,6 +74,8 @@ public class ActivityDetail extends ActivityBase {
     public static final int PAGE_ADDRESS_BOOK_CHOOSE = 16;//选择地址本
 
     public static final int PAGE_TRANS_RECORD_DETAIL = 17;//交易记录详情
+
+    public static final int PAGE_TRANS_SS = 18;//交易申诉
 
     private AppBarLayout appbar;
 
@@ -180,6 +183,11 @@ public class ActivityDetail extends ActivityBase {
             {
                 setTitleBarBackgroundColor(getResources().getColor(R.color.bg_base2));
                 navigateTo(FragmentTransRecordDetail.newInstance());
+            }
+                break;
+            case PAGE_TRANS_SS:
+            {
+                navigateTo(FragmentAppeal.newInstance());
             }
                 break;
 
