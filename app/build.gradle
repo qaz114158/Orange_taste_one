@@ -147,7 +147,7 @@ dependencies {
     implementation 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
 //    implementation files('libs/EthSDK.jar')
 //    implementation files('libs/BcSDK.jar')
-    implementation files('libs/FbcEthSDK_fat.jar')
+    implementation files('libs/FbcEthSDK.jar')
 }
 
 configurations.all {

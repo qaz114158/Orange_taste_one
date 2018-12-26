@@ -22,7 +22,7 @@ import net.sourceforge.utils.AppUtils;
 import net.sourceforge.utils.DMG;
 
 import org.brewchain.bcapi.gens.Oentity;
-import org.fc.bc.sdk.BcSDK;
+import org.fc.fbc.sdk.FbcSDK;
 import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
@@ -86,8 +86,8 @@ public class ActivityRestoreAccount extends ActivityBase {
                 //默认导入fbc钱包
 
                 try {
-                    String keyStoreContent = BcSDK.genKeyStoreContentBySeed(mnemonic,"123456");
-                    Oentity.KeyStoreValue from = BcSDK.readKeyStoreContent("123456", keyStoreContent);
+                    String keyStoreContent = FbcSDK.genKeyStoreContentBySeed(mnemonic,"123456");
+                    Oentity.KeyStoreValue from = FbcSDK.readKeyStoreContent("123456", keyStoreContent);
 
                     WalletModel walletModel = new WalletModel();
                     walletModel.walletType = WalletModel.WalletType.FBC;

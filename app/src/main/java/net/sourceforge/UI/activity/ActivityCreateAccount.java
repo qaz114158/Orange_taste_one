@@ -22,8 +22,9 @@ import net.sourceforge.utils.MnemonicUtils;
 import net.sourceforge.utils.RandomUtil;
 
 import org.brewchain.bcapi.gens.Oentity;
-import org.fc.bc.sdk.BcSDK;
+
 import org.fc.eth.sdk.EthSDK;
+import org.fc.fbc.sdk.FbcSDK;
 import org.greenrobot.eventbus.EventBus;
 import org.web3j.crypto.Credentials;
 
@@ -129,8 +130,8 @@ public class ActivityCreateAccount extends ActivityBase {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-//                if (genalFBCWallet() && genalETHWallet()) {
-                if (genalFBCWallet()) {
+                if (genalFBCWallet() && genalETHWallet()) {
+//                if (genalFBCWallet()) {
                     EventBus.getDefault().post(new EventAction(null, EventAction.EventKey.KEY_WALLET_CREATE_SUCESS));
                     createSuccess();
                 }
@@ -171,8 +172,9 @@ public class ActivityCreateAccount extends ActivityBase {
 
             String mnemonicStr = MnemonicUtils.generateMnemonic(RandomUtil.generateByteStr(16));
 
-            String keyStoreContent = BcSDK.genKeyStoreContentBySeed(mnemonicStr,pwd);
-            Oentity.KeyStoreValue from = BcSDK.readKeyStoreContent(pwd, keyStoreContent);
+
+            String keyStoreContent = FbcSDK.genKeyStoreContentBySeed(mnemonicStr,pwd);
+            Oentity.KeyStoreValue from = FbcSDK.readKeyStoreContent(pwd, keyStoreContent);
 
             walletModel.address = from.getAddress();
             walletModel.privateKey = from.getPrikey();
