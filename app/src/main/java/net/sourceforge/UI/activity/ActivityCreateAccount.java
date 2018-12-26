@@ -213,7 +213,7 @@ public class ActivityCreateAccount extends ActivityBase {
 
             String mnemonicStr = MnemonicUtils.generateMnemonic(RandomUtil.generateByteStr(16));
 
-            String keyStoreContent = EthSDK.genKeyStoreContentBySeed(mnemonicStr,pwd);
+            String keyStoreContent = EthSDK.genKeyStoreContent(pwd);
             Credentials from = EthSDK.readKeyStoreContent(pwd, keyStoreContent);
 
 
