@@ -9,7 +9,6 @@ import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 
-
 import com.chain.wallet.spd.R;
 
 import net.sourceforge.base.ActivityBase;
@@ -19,14 +18,14 @@ import net.sourceforge.manager.JumpMethod;
 import net.sourceforge.manager.WalletManager;
 import net.sourceforge.utils.AppUtils;
 import net.sourceforge.utils.DMG;
-import net.sourceforge.utils.KeyStoreUtils;
 import net.sourceforge.utils.MnemonicUtils;
 import net.sourceforge.utils.RandomUtil;
 
-import org.brewchain.ecrypto.impl.EncInstance;
-import org.fc.brewchain.bcapi.KeyPairs;
-import org.fc.brewchain.bcapi.KeyStoreFile;
+import org.brewchain.bcapi.gens.Oentity;
+import org.fc.bc.sdk.BcSDK;
+import org.fc.eth.sdk.EthSDK;
 import org.greenrobot.eventbus.EventBus;
+import org.web3j.crypto.Credentials;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +41,6 @@ public class ActivityCreateAccount extends ActivityBase {
 
     @BindView(R.id.re_password)
     public EditText re_password;
-
 
     @BindView(R.id.bt_create)
     public Button bt_create;
@@ -93,6 +91,7 @@ public class ActivityCreateAccount extends ActivityBase {
         final String pwd = et_password.getText().toString();
         final String rePwd = re_password.getText().toString();
 
+
 //        JumpMethod.jumpToCreateAccountSuccess(this);
 
         if (TextUtils.isEmpty(walletId)) {
@@ -130,37 +129,12 @@ public class ActivityCreateAccount extends ActivityBase {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                WalletModel walletModel = new WalletModel();
-                walletModel.walletId = walletId;
-                walletModel.walletPassowrd = pwd;
+//                if (genalFBCWallet() && genalETHWallet()) {
+                if (genalFBCWallet()) {
+                    EventBus.getDefault().post(new EventAction(null, EventAction.EventKey.KEY_WALLET_CREATE_SUCESS));
+                    createSuccess();
+                }
 
-                String mnemonicStr = MnemonicUtils.generateMnemonic(RandomUtil.generateByteStr(16));
-                EncInstance encAPI = new EncInstance();
-                encAPI.startup();
-
-                KeyPairs keyPairs = encAPI.genKeys(mnemonicStr);
-                walletModel.address = keyPairs.getAddress();
-                walletModel.privateKey = keyPairs.getPrikey();
-                walletModel.pubKey = keyPairs.getPubkey();
-                walletModel.bcuId = keyPairs.getBcuid();
-                walletModel.mnemonicStr = mnemonicStr;
-                walletModel.balance = 629502.1200f;
-                walletModel.balance_cny = 559123.783f;
-
-                KeyStoreUtils keyStoreHelper = new KeyStoreUtils(encAPI);
-                KeyStoreFile oKeyStoreFile = keyStoreHelper.generate(keyPairs, pwd);
-                String keyStoreFileStr = keyStoreHelper.parseToJsonStr(oKeyStoreFile);
-                walletModel.keystoreJson = keyStoreFileStr;
-
-                //test
-//                EncAPI apiB = new EncInstance();
-//                KeyStoreUtils keyStoreHelperB = new KeyStoreUtils(apiB);
-//                Oentity.KeyStoreValue oKeyStoreValue = keyStoreHelperB.getKeyStore(keyStoreFileStr, pwd);
-
-                WalletManager.getInstance().addWallet(walletModel);
-                WalletManager.getInstance().setCurrentWallet(walletModel.pubKey);
-                EventBus.getDefault().post(new EventAction(null, EventAction.EventKey.KEY_WALLET_CREATE_SUCESS));
-                createSuccess(walletModel);
             }
         }, 3000);
 
@@ -171,7 +145,7 @@ public class ActivityCreateAccount extends ActivityBase {
         AppUtils.hideSoftInput(this);
     }
 
-    public void createSuccess(final WalletModel walletModel) {
+    public void createSuccess() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -184,5 +158,88 @@ public class ActivityCreateAccount extends ActivityBase {
             }
         });
     }
+
+    public boolean genalFBCWallet() {
+        final String walletId = et_username.getText().toString();
+        final String pwd = et_password.getText().toString();
+
+        try {
+            WalletModel walletModel = new WalletModel();
+            walletModel.walletType = WalletModel.WalletType.FBC;
+            walletModel.walletId = walletId;
+            walletModel.walletPassowrd = pwd;
+
+            String mnemonicStr = MnemonicUtils.generateMnemonic(RandomUtil.generateByteStr(16));
+
+            String keyStoreContent = BcSDK.genKeyStoreContentBySeed(mnemonicStr,pwd);
+            Oentity.KeyStoreValue from = BcSDK.readKeyStoreContent(pwd, keyStoreContent);
+
+            walletModel.address = from.getAddress();
+            walletModel.privateKey = from.getPrikey();
+            walletModel.pubKey = from.getPubkey();
+            walletModel.bcuId = from.getBcuid();
+            walletModel.mnemonicStr = mnemonicStr;
+            walletModel.balance = 629502.1200f;
+            walletModel.balance_cny = 559123.783f;
+
+            walletModel.keystoreJson = keyStoreContent;
+
+            //test
+//                EncAPI apiB = new EncInstance();
+//                KeyStoreUtils keyStoreHelperB = new KeyStoreUtils(apiB);
+//                Oentity.KeyStoreValue oKeyStoreValue = keyStoreHelperB.getKeyStore(keyStoreFileStr, pwd);
+
+            WalletManager.getInstance().addWallet(walletModel);
+            WalletManager.getInstance().setCurrentWallet(walletModel.pubKey);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean genalETHWallet() {
+        final String walletId = et_username.getText().toString();
+        final String pwd = et_password.getText().toString();
+
+//        EthSDK
+        try {
+            WalletModel walletModel = new WalletModel();
+            walletModel.walletType = WalletModel.WalletType.ETH;
+            walletModel.walletId = walletId;
+            walletModel.walletPassowrd = pwd;
+
+            String mnemonicStr = MnemonicUtils.generateMnemonic(RandomUtil.generateByteStr(16));
+
+            String keyStoreContent = EthSDK.genKeyStoreContentBySeed(mnemonicStr,pwd);
+            Credentials from = EthSDK.readKeyStoreContent(pwd, keyStoreContent);
+
+
+
+            walletModel.address = from.getAddress();
+            walletModel.privateKey = from.getEcKeyPair().getPrivateKey().toString();
+            walletModel.pubKey = from.getEcKeyPair().getPublicKey().toString();
+            walletModel.bcuId = "";
+            walletModel.mnemonicStr = mnemonicStr;
+            walletModel.balance = 629502.1200f;
+            walletModel.balance_cny = 559123.783f;
+
+            walletModel.keystoreJson = keyStoreContent;
+
+            //test
+//                EncAPI apiB = new EncInstance();
+//                KeyStoreUtils keyStoreHelperB = new KeyStoreUtils(apiB);
+//                Oentity.KeyStoreValue oKeyStoreValue = keyStoreHelperB.getKeyStore(keyStoreFileStr, pwd);
+
+            WalletManager.getInstance().addWallet(walletModel);
+//            WalletManager.getInstance().setCurrentWallet(walletModel.pubKey);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
 
 }

@@ -279,6 +279,8 @@ public class PreferenceHelper {
 
         public static final String KEY_WALLET_TRANS = "KEY_WALLET_TRANS";
 
+        public static final String KEY_NODE_LIST = "KEY_NODE_LIST";
+
         public PreferenceKey() {
         }
     }

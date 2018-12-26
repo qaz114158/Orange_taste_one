@@ -1,6 +1,8 @@
 package net.sourceforge.UI.activity;
 
 import android.Manifest;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,16 +10,21 @@ import android.view.KeyEvent;
 
 import com.chain.wallet.spd.R;
 
+import net.sourceforge.UI.model.WalletViewModel;
 import net.sourceforge.UI.view.NaviTabButton;
 import net.sourceforge.application.AppApplication;
 import net.sourceforge.base.ActivityBase;
 import net.sourceforge.external.eventbus.events.EventAction;
+import net.sourceforge.http.model.NodeModel;
+import net.sourceforge.manager.WalletManager;
 import net.sourceforge.utils.DMG;
 import net.sourceforge.utils.PreferenceHelper;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import kr.co.namee.permissiongen.PermissionGen;
@@ -33,6 +40,7 @@ public class ActivityMain extends ActivityBase {
     private NaviTabButton[] mTabButtons;
     private int currentFragmentIndex;
     private long mExitUtcMs = 0;
+    private WalletViewModel walletViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +52,7 @@ public class ActivityMain extends ActivityBase {
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
 //        checkPermission();
+        initDataObserver();
     }
 
     private void initFragment() {
@@ -159,6 +168,21 @@ public class ActivityMain extends ActivityBase {
     @PermissionSuccess(requestCode = 100)
     public void onPermissionSuccess(){
 //        Toast.makeText(this, "Contact permission is granted", Toast.LENGTH_SHORT).show();
+    }
+
+    private void initDataObserver() {
+        walletViewModel = ViewModelProviders.of(this).get(WalletViewModel.class);
+        getLifecycle().addObserver(walletViewModel);
+        walletViewModel.getNodeModelResponse().observe(this, new Observer<List<NodeModel>>() {
+            @Override
+            public void onChanged(@Nullable List<NodeModel> nodeModelResponses) {
+                if (nodeModelResponses != null && nodeModelResponses.size() >0) {
+                    WalletManager.getInstance().addNodeList(nodeModelResponses);
+                }
+            }
+        });
+        walletViewModel.requestNodeList("ETH", "dev");
+        walletViewModel.requestNodeList("FBC", "dev");
     }
 
 }

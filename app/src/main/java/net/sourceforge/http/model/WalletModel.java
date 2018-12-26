@@ -38,4 +38,11 @@ public class WalletModel implements Serializable{
     //0未认证
     public int auth;
 
+    public WalletType walletType;
+
+
+    public enum WalletType {
+        FBC, ETH
+    }
+
 }

@@ -142,12 +142,12 @@ public class TextUtils {
         if (response == null) {
             return false;
         }
-        if ("E00000".equalsIgnoreCase(response.code)) {
+        if ("1".equalsIgnoreCase(response.code)) {
             return true;
         }
-        if ("E00001".equalsIgnoreCase(response.code)) {
-            UserManager.getInstance().logoutUser();
-        }
+//        if ("E00001".equalsIgnoreCase(response.code)) {
+//            UserManager.getInstance().logoutUser();
+//        }
         return false;
     }
 

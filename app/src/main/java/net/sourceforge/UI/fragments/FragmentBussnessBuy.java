@@ -16,18 +16,27 @@ import net.sourceforge.UI.view.BussnessBuyDialog;
 import net.sourceforge.UI.view.InputAmountDialog;
 import net.sourceforge.base.FragmentBase;
 import net.sourceforge.commons.log.SWLog;
+import net.sourceforge.http.engine.RetrofitClient;
+import net.sourceforge.http.engine.RetrofitClientOTC;
 import net.sourceforge.http.model.BussnessModel;
+import net.sourceforge.http.model.NodeModel;
 import net.sourceforge.http.model.TransRecordModel;
 import net.sourceforge.utils.DMG;
+import net.sourceforge.utils.GsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import okhttp3.RequestBody;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by terry.c on 06/03/2018.
@@ -96,7 +105,7 @@ public class FragmentBussnessBuy extends FragmentBase {
                 }
             }
         });
-
+        loadData();
     }
 
     @Override
@@ -134,6 +143,28 @@ public class FragmentBussnessBuy extends FragmentBase {
             }
         });
         dialog.show();
+    }
+
+    public void loadData() {
+        RetrofitClientOTC.APIService apiService = RetrofitClientOTC.getInstance().createRetrofit().create(RetrofitClientOTC.APIService.class);
+        Map<String, String> params = new HashMap<>();
+
+        params.put("pageNum", "1");
+        params.put("pageSize", "10");
+        String json = GsonUtil.toJson(params);
+        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=utf-8"), json);
+        retrofit2.Call<NodeModel.NodeModelResponse> call = apiService.requestBuyList(body);
+        call.enqueue(new Callback<NodeModel.NodeModelResponse>() {
+            @Override
+            public void onResponse(retrofit2.Call<NodeModel.NodeModelResponse> call, Response<NodeModel.NodeModelResponse> response) {
+                SWLog.d(TAG(), "onResponse()");
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<NodeModel.NodeModelResponse> call, Throwable t) {
+
+            }
+        });
     }
 
 }

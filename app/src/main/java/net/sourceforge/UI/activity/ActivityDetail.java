@@ -20,6 +20,7 @@ import net.sourceforge.UI.fragments.FragmentAuthMiddle;
 import net.sourceforge.UI.fragments.FragmentBussiness;
 import net.sourceforge.UI.fragments.FragmentFinancialManagement;
 import net.sourceforge.UI.fragments.FragmentMore;
+import net.sourceforge.UI.fragments.FragmentSwitchWallet;
 import net.sourceforge.UI.fragments.FragmentTransRecord;
 import net.sourceforge.UI.fragments.FragmentPayment;
 import net.sourceforge.UI.fragments.FragmentSetLoginPassword;
@@ -76,6 +77,8 @@ public class ActivityDetail extends ActivityBase {
     public static final int PAGE_TRANS_RECORD_DETAIL = 17;//交易记录详情
 
     public static final int PAGE_TRANS_SS = 18;//交易申诉
+
+    public static final int PAGE_SWITCH_WALLET = 19;//切换钱包
 
     private AppBarLayout appbar;
 
@@ -188,6 +191,11 @@ public class ActivityDetail extends ActivityBase {
             case PAGE_TRANS_SS:
             {
                 navigateTo(FragmentAppeal.newInstance());
+            }
+                break;
+            case PAGE_SWITCH_WALLET:
+            {
+                navigateTo(FragmentSwitchWallet.newInstance());
             }
                 break;
 

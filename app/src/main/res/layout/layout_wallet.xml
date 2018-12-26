@@ -85,7 +85,8 @@
                     android:textSize="11sp"
                     android:background="@color/transparent"
                     android:text="切换钱包"
-                    android:visibility="gone"
+                    android:visibility="visible"
+                    android:id="@+id/bt_switch_wallet"
                     />
 
 
@@ -128,6 +129,7 @@
                             android:layout_marginLeft="15dp"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
+                            android:id="@+id/tv_coin_type"
                             />
 
                         <ImageButton
@@ -173,6 +175,7 @@
                             android:src="@drawable/ic_home_4"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="2dp"
+                            android:visibility="gone"
                             />
                     </LinearLayout>
 
@@ -214,6 +217,8 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="23dp"
                 android:paddingRight="23dp"
+                android:id="@+id/ll_assert"
+                android:layout_marginTop="10dp"
                 >
                 <TextView
                     android:layout_width="0dp"
@@ -228,7 +233,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_home_add"
-                    android:visibility="invisible"
+                    android:visibility="visible"
                     />
 
 

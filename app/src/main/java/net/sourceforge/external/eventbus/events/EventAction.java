@@ -75,6 +75,8 @@ public class EventAction {
 
 		public static final String KEY_WALLET_IMPORT_SUCESS = "KEY_WALLET_IMPORT_SUCESS";
 
+		public static final String KEY_WALLET_SWICH = "KEY_WALLET_SWICH";
+
 		public EventKey() {
 		}
 	}

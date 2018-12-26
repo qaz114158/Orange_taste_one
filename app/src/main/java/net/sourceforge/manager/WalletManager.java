@@ -2,6 +2,7 @@ package net.sourceforge.manager;
 
 import android.text.TextUtils;
 
+import net.sourceforge.http.model.NodeModel;
 import net.sourceforge.http.model.WalletModel;
 import net.sourceforge.utils.PreferenceHelper;
 
@@ -177,6 +178,34 @@ public class WalletManager {
         }
         return false;
     }
+
+    public void addNodeList(List<NodeModel> models) {
+        List<NodeModel> localNodes = getNodeList();
+        if (localNodes == null) {
+            localNodes = new ArrayList<>();
+        }
+        if (models != null && models.size() >0) {
+            for (int i =0; i<models.size() ; i++) {
+                boolean hasModel = false;
+                NodeModel model = models.get(i);
+                for (int j=0; j<localNodes.size(); j++) {
+                    NodeModel lModel = localNodes.get(j);
+                    if (model.node_url.equalsIgnoreCase(lModel.node_url)) {
+                        hasModel = true;
+                    }
+                }
+                if (!hasModel) {
+                    localNodes.add(model);
+                }
+
+            }
+        }
+    }
+
+    public List<NodeModel> getNodeList() {
+        return PreferenceHelper.getInstance().getObject(PreferenceHelper.PreferenceKey.KEY_NODE_LIST, List.class);
+    }
+
 
 //    public void addTransByWallet(String walletAddress, TransModel transModel) {
 //        Map<String, List<TransModel>> trans = (Map<String, List<TransModel>>) PreferenceHelper.getInstance().getObject(PreferenceHelper.PreferenceKey.KEY_WALLET_TRANS, Map.class);

@@ -21,10 +21,8 @@ import net.sourceforge.manager.WalletManager;
 import net.sourceforge.utils.AppUtils;
 import net.sourceforge.utils.DMG;
 
-import org.brewchain.ecrypto.impl.EncInstance;
-import org.fc.brewchain.bcapi.KeyPairs;
-import org.fc.brewchain.bcapi.KeyStoreFile;
-import org.fc.brewchain.bcapi.KeyStoreHelper;
+import org.brewchain.bcapi.gens.Oentity;
+import org.fc.bc.sdk.BcSDK;
 import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
@@ -85,23 +83,22 @@ public class ActivityRestoreAccount extends ActivityBase {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                EncInstance encAPI = new EncInstance();
-                encAPI.startup();
+                //默认导入fbc钱包
 
-                KeyPairs keyPairs =  encAPI.genKeys(mnemonic);
-                if (keyPairs != null) {
+                try {
+                    String keyStoreContent = BcSDK.genKeyStoreContentBySeed(mnemonic,"123456");
+                    Oentity.KeyStoreValue from = BcSDK.readKeyStoreContent("123456", keyStoreContent);
+
                     WalletModel walletModel = new WalletModel();
-                    walletModel.pubKey = keyPairs.getPubkey();
-                    walletModel.privateKey = keyPairs.getPrikey();
+                    walletModel.walletType = WalletModel.WalletType.FBC;
+                    walletModel.pubKey = from.getPubkey();
+                    walletModel.privateKey = from.getPrikey();
                     walletModel.mnemonicStr = mnemonic;
-                    walletModel.address = keyPairs.getAddress();
+                    walletModel.address = from.getAddress();
                     walletModel.walletPassowrd = "";
                     walletModel.walletId = AppUtils.genalCharacter(2) + "-" + "新钱包";
 
-                    KeyStoreHelper keyStoreHelper = new KeyStoreHelper(encAPI);
-                    KeyStoreFile oKeyStoreFile = keyStoreHelper.generate(keyPairs, "123456");
-                    String keyStoreFileStr = keyStoreHelper.parseToJsonStr(oKeyStoreFile);
-                    walletModel.keystoreJson = keyStoreFileStr;
+                    walletModel.keystoreJson = keyStoreContent;
 
                     if (WalletManager.getInstance().isWalletExist(walletModel)) {
                         runOnUiThread(new Runnable() {
@@ -125,8 +122,8 @@ public class ActivityRestoreAccount extends ActivityBase {
                             JumpMethod.jumpToMain(mContext);
                         }
                     });
-
-                } else {
+                } catch (Exception e) {
+                    e.printStackTrace();
                     hideProgressDialog();
                     TCDialogUtils.showTipDialogOneButtonNoTitle(mContext, "导入失败", "确定", new TipDialogOneButton.OnConfirmListener() {
                         @Override

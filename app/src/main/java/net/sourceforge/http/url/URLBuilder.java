@@ -25,7 +25,7 @@ public class URLBuilder {
         } else {
 //            http://www.ruoqingzixun.com/appapi/login.php
 //            return "http://www.ruoqingzixun.com/";
-            return "https://testbbs.guitarchina.com/";
+            return "https://dev.wallet.icwv.co/";
         }
     }
 

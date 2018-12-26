@@ -1,10 +1,13 @@
 package net.sourceforge.UI.fragments;
 
 import android.Manifest;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,6 +20,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,12 +33,16 @@ import net.sourceforge.UI.activity.ActivityMain;
 import net.sourceforge.UI.activity.CaptureQRActivity;
 import net.sourceforge.UI.adapter.HomeAssertsAdapter;
 import net.sourceforge.UI.adapter.HomeFeatureAdapter;
+import net.sourceforge.UI.model.WalletViewModel;
 import net.sourceforge.UI.view.InputWalletPasswordDialog;
 import net.sourceforge.base.FragmentBase;
 import net.sourceforge.commons.log.SWLog;
+import net.sourceforge.external.eventbus.events.EventAction;
 import net.sourceforge.external.risenumber.RiseNumberTextView;
+import net.sourceforge.http.model.BaseResponse;
 import net.sourceforge.http.model.HomeAssertModel;
 import net.sourceforge.http.model.HomeFeatureModel;
+import net.sourceforge.http.model.NodeModel;
 import net.sourceforge.http.model.WalletModel;
 import net.sourceforge.manager.JumpMethod;
 import net.sourceforge.manager.WalletManager;
@@ -42,6 +50,8 @@ import net.sourceforge.utils.AppUtils;
 import net.sourceforge.utils.DMG;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +75,8 @@ public class FragmentWallet extends FragmentBase {
 
     private Unbinder unbinder;
 
+    private WalletViewModel walletViewModel;
+
     @BindView(R.id.rl_home_features)
     public RecyclerView rl_home_features;
 
@@ -85,6 +97,12 @@ public class FragmentWallet extends FragmentBase {
     @BindView(R.id.tv_count_cny)
     public TextView tv_count_cny;
 
+    @BindView(R.id.tv_coin_type)
+    public TextView tv_coin_type;
+
+    @BindView(R.id.ll_assert)
+    public LinearLayout ll_assert;
+
     private HomeAssertsAdapter homeAssertsAdapter;
 
     private boolean isShow = true;
@@ -94,6 +112,8 @@ public class FragmentWallet extends FragmentBase {
     public static final int REQUEST_CODE = 0x1112;
 
     private InputWalletPasswordDialog inputWalletPasswordDialog;
+
+    private WalletModel currentWallet;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -105,19 +125,42 @@ public class FragmentWallet extends FragmentBase {
         }
         curView = inflater.inflate(R.layout.layout_wallet, null);
         unbinder = ButterKnife.bind(this, curView);
+        EventBus.getDefault().register(this);
+        walletViewModel = ViewModelProviders.of(getActivity()).get(WalletViewModel.class);
+        getLifecycle().addObserver(walletViewModel);
         initResource();
         setData();
+        initDataObserver();
         return curView;
     }
 
+
     private void setData() {
-        WalletModel walletModel = WalletManager.getInstance().getCurrentWallet();
-        if (walletModel != null) {
-            tv_username.setText(walletModel.walletId);
-            tv_address.setText(walletModel.address);
-            tv_count.withNumber(walletModel.balance).start();
+        currentWallet = WalletManager.getInstance().getCurrentWallet();
+        if (currentWallet != null) {
+            switch (currentWallet.walletType) {
+                case FBC:
+                {
+                    tv_coin_type.setText("Total：SPDT");
+                    rl_home_features.setVisibility(View.VISIBLE);
+                    rl_home_asserts.setVisibility(View.GONE);
+                    ll_assert.setVisibility(View.GONE);
+                }
+                    break;
+                case ETH:
+                {
+                    tv_coin_type.setText("Total：ETH");
+                    rl_home_features.setVisibility(View.GONE);
+                    rl_home_asserts.setVisibility(View.VISIBLE);
+                    ll_assert.setVisibility(View.VISIBLE);
+                }
+                    break;
+            }
+            tv_username.setText(currentWallet.walletId);
+            tv_address.setText(currentWallet.address);
+            tv_count.withNumber(currentWallet.balance).start();
 //            tv_count.setText(String.valueOf(walletModel.balance));
-            tv_count_cny.setText("≈" + String.format("%.3f", walletModel.balance_cny) + " CNY");
+            tv_count_cny.setText("≈" + String.format("%.3f", currentWallet.balance_cny) + " CNY");
         }
     }
 
@@ -339,4 +382,33 @@ public class FragmentWallet extends FragmentBase {
         inputWalletPasswordDialog.resetStatu();
         return inputWalletPasswordDialog;
     }
+
+    private void initDataObserver() {
+        walletViewModel.getNodeModelResponse().observe(getActivity(), new Observer<List<NodeModel>>() {
+            @Override
+            public void onChanged(@Nullable List<NodeModel> models) {
+                if (models != null && models.size() >0) {
+                    SWLog.d(TAG(), "models in fragment size:" + models.size());
+                }
+            }
+        });
+        SWLog.d(TAG(), "models in fragment getNodelist:" + (walletViewModel.getNodeList() == null?"000":walletViewModel.getNodeList().size()));
+    }
+
+    @OnClick(R.id.bt_switch_wallet)
+    public void onClickSwitchWallet() {
+        JumpMethod.jumpToDetail(getActivity(), "切换钱包", ActivityDetail.PAGE_SWITCH_WALLET);
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(EventAction messageEvent){
+        String tag = messageEvent.getMessageTag();
+        if (tag.equalsIgnoreCase(EventAction.EventKey.KEY_WALLET_SWICH)) {
+            currentWallet = WalletManager.getInstance().getCurrentWallet();
+            setData();
+        }
+    }
+
+
 }
