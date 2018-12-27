@@ -4,6 +4,7 @@ import net.sourceforge.commons.log.SWLog;
 import net.sourceforge.http.model.BaseResponse;
 import net.sourceforge.http.model.NodeModel;
 import net.sourceforge.http.model.UserInfo;
+import net.sourceforge.http.model.WalletBalanceModel;
 import net.sourceforge.http.url.URLBuilder;
 import net.sourceforge.utils.TextUtils;
 
@@ -87,11 +88,22 @@ public class RetrofitClient {
          * @return
          */
         @Headers({"Content-Type:application/x-www-form-urlencoded"})
-        @POST("spdt/pbqnl.do")
+        @POST("fbc/pbqnl.do")
         Call<NodeModel.NodeModelResponse> requestNodeList(@Body RequestBody map);
 
-       
 
     }
 
+    public interface FBCBalanceService {
+
+        /**
+         * 获取FBC钱包余额
+         * @param map
+         * @return
+         */
+        @Headers({"Content-Type:application/x-www-form-urlencoded"})
+        @POST("fbc/pbqbe.do")
+        Call<WalletBalanceModel> requestFBCBalance(@Body RequestBody map);
+
+    }
 }
