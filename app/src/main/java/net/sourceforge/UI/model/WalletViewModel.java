@@ -49,7 +49,7 @@ public class WalletViewModel extends AndroidViewModel implements LifecycleObserv
         RetrofitClient.APIService apiService = RetrofitClient.getInstance().createRetrofit().create(RetrofitClient.APIService.class);
         Map<String, String> params = new HashMap<>();
 
-        params.put("chain_type", chainType);
+        params.put("dapp_id", chainType);
         params.put("node_net", nodeNet);
         String json = GsonUtil.toJson(params);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=utf-8"), json);
