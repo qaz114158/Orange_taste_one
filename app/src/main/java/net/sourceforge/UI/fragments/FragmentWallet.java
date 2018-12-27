@@ -39,22 +39,27 @@ import net.sourceforge.base.FragmentBase;
 import net.sourceforge.commons.log.SWLog;
 import net.sourceforge.external.eventbus.events.EventAction;
 import net.sourceforge.external.risenumber.RiseNumberTextView;
+import net.sourceforge.http.engine.RetrofitClient;
 import net.sourceforge.http.model.BaseResponse;
 import net.sourceforge.http.model.HomeAssertModel;
 import net.sourceforge.http.model.HomeFeatureModel;
 import net.sourceforge.http.model.NodeModel;
+import net.sourceforge.http.model.WalletBalanceModel;
 import net.sourceforge.http.model.WalletModel;
 import net.sourceforge.manager.JumpMethod;
 import net.sourceforge.manager.WalletManager;
 import net.sourceforge.utils.AppUtils;
 import net.sourceforge.utils.DMG;
+import net.sourceforge.utils.GsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,6 +67,9 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
+import okhttp3.RequestBody;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by terry.c on 06/03/2018.
@@ -134,9 +142,61 @@ public class FragmentWallet extends FragmentBase {
         return curView;
     }
 
+    public void requestFBCBalance(String dapp_id, String node_url, String address, String contract_addr) {
+        RetrofitClient.FBCBalanceService apiService = RetrofitClient.getInstance().createRetrofit().create(RetrofitClient.FBCBalanceService.class);
+        Map<String, String> params = new HashMap<>();
+
+        params.put("dapp_id", dapp_id);
+        params.put("node_url", node_url);
+        params.put("address", address);
+        if (TextUtils.isEmpty(contract_addr) && !contract_addr.equalsIgnoreCase(" ")) {
+            params.put("contract_addr", contract_addr);
+        }
+        String json = GsonUtil.toJson(params);
+        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=utf-8"), json);
+        retrofit2.Call<WalletBalanceModel> call = apiService.requestFBCBalance(body);
+        call.enqueue(new Callback<WalletBalanceModel>() {
+            @Override
+            public void onResponse(retrofit2.Call<WalletBalanceModel> call, Response<WalletBalanceModel> response) {
+                if (net.sourceforge.utils.TextUtils.isResponseSuccess(response.body())) {
+                    tv_count.setText(response.body().balance);
+                } else {
+                    // TODO
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<WalletBalanceModel> call, Throwable t) {
+
+            }
+        });
+    }
 
     private void setData() {
         currentWallet = WalletManager.getInstance().getCurrentWallet();
+        switch (currentWallet.walletType) {
+            case FBC:
+            {
+                tv_coin_type.setText("Total：SPDT");
+                rl_home_features.setVisibility(View.VISIBLE);
+                rl_home_asserts.setVisibility(View.GONE);
+                ll_assert.setVisibility(View.GONE);
+
+                //TODO 此处可用创建账号接口返回，写一个VidewModle 作共享使用，在 onChanged 回调中显示ui（地址）
+//                tv_address.setText("");
+                requestFBCBalance("", "", "", "");
+            }
+            break;
+            case ETH:
+            {
+                tv_coin_type.setText("Total：ETH");
+                rl_home_features.setVisibility(View.GONE);
+                rl_home_asserts.setVisibility(View.VISIBLE);
+                ll_assert.setVisibility(View.VISIBLE);
+            }
+            break;
+        }
+/*        currentWallet = WalletManager.getInstance().getCurrentWallet();
         if (currentWallet != null) {
             switch (currentWallet.walletType) {
                 case FBC:
@@ -161,7 +221,7 @@ public class FragmentWallet extends FragmentBase {
             tv_count.withNumber(currentWallet.balance).start();
 //            tv_count.setText(String.valueOf(walletModel.balance));
             tv_count_cny.setText("≈" + String.format("%.3f", currentWallet.balance_cny) + " CNY");
-        }
+        }*/
     }
 
     private void initResource() {
