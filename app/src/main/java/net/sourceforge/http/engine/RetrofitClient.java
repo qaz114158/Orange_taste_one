@@ -94,6 +94,46 @@ public class RetrofitClient {
 
     }
 
+    public interface ETHNodeListService {
+
+        /**
+         * 获取ETH节点列表
+         * @param map
+         * @return
+         */
+        @Headers({"Content-Type:application/x-www-form-urlencoded"})
+        @POST("eth/pbqnl.do")
+        Call<NodeModel.NodeModelResponse> requestNodeList(@Body RequestBody map);
+
+
+    }
+
+    public interface CreateETHAccountService {
+
+        /**
+         * 创建ETH链账户
+         * @param map
+         * @return
+         */
+        @Headers({"Content-Type:application/x-www-form-urlencoded"})
+        @POST("eth/pbhna.do")
+        Call<WalletBalanceModel> requestCreateETHAccount(@Body RequestBody map);
+
+    }
+
+    public interface CreateFBCAccountService {
+
+        /**
+         * 创建FBC链账户
+         * @param map
+         * @return
+         */
+        @Headers({"Content-Type:application/x-www-form-urlencoded"})
+        @POST("fbc/pbhna.do")
+        Call<WalletBalanceModel> requestCreateFBCAccount(@Body RequestBody map);
+
+    }
+
     public interface FBCBalanceService {
 
         /**
@@ -104,6 +144,19 @@ public class RetrofitClient {
         @Headers({"Content-Type:application/x-www-form-urlencoded"})
         @POST("fbc/pbqbe.do")
         Call<WalletBalanceModel> requestFBCBalance(@Body RequestBody map);
+
+    }
+
+    public interface ETHBalanceService {
+
+        /**
+         * 获取ETH钱包余额
+         * @param map
+         * @return
+         */
+        @Headers({"Content-Type:application/x-www-form-urlencoded"})
+        @POST("eth/pbqbe.do")
+        Call<WalletBalanceModel> requestETHBalance(@Body RequestBody map);
 
     }
 }

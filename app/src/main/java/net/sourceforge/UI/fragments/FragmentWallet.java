@@ -1,6 +1,7 @@
 package net.sourceforge.UI.fragments;
 
 import android.Manifest;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +39,7 @@ import net.sourceforge.UI.model.WalletViewModel;
 import net.sourceforge.UI.view.InputWalletPasswordDialog;
 import net.sourceforge.base.FragmentBase;
 import net.sourceforge.commons.log.SWLog;
+import net.sourceforge.constants.Constants;
 import net.sourceforge.external.eventbus.events.EventAction;
 import net.sourceforge.external.risenumber.RiseNumberTextView;
 import net.sourceforge.http.engine.RetrofitClient;
@@ -51,6 +54,7 @@ import net.sourceforge.manager.WalletManager;
 import net.sourceforge.utils.AppUtils;
 import net.sourceforge.utils.DMG;
 import net.sourceforge.utils.GsonUtil;
+import net.sourceforge.utils.PreferenceHelper;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -137,39 +141,77 @@ public class FragmentWallet extends FragmentBase {
         walletViewModel = ViewModelProviders.of(getActivity()).get(WalletViewModel.class);
         getLifecycle().addObserver(walletViewModel);
         initResource();
-        setData();
+//        setData();
         initDataObserver();
         return curView;
     }
 
-    public void requestFBCBalance(String dapp_id, String node_url, String address, String contract_addr) {
-        RetrofitClient.FBCBalanceService apiService = RetrofitClient.getInstance().createRetrofit().create(RetrofitClient.FBCBalanceService.class);
-        Map<String, String> params = new HashMap<>();
+    public void requestBalance(String chain_type, String dapp_id, String node_url, String address, String contract_addr) {
+        if (chain_type.equalsIgnoreCase("ETH")) {
+            RetrofitClient.ETHBalanceService apiService = RetrofitClient.getInstance().createRetrofit().create(RetrofitClient.ETHBalanceService.class);
+            Map<String, String> params = new HashMap<>();
 
-        params.put("dapp_id", dapp_id);
-        params.put("node_url", node_url);
-        params.put("address", address);
-        if (TextUtils.isEmpty(contract_addr) && !contract_addr.equalsIgnoreCase(" ")) {
-            params.put("contract_addr", contract_addr);
-        }
-        String json = GsonUtil.toJson(params);
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=utf-8"), json);
-        retrofit2.Call<WalletBalanceModel> call = apiService.requestFBCBalance(body);
-        call.enqueue(new Callback<WalletBalanceModel>() {
-            @Override
-            public void onResponse(retrofit2.Call<WalletBalanceModel> call, Response<WalletBalanceModel> response) {
-                if (net.sourceforge.utils.TextUtils.isResponseSuccess(response.body())) {
-                    tv_count.setText(response.body().balance);
-                } else {
-                    // TODO
+            params.put("dapp_id", dapp_id);
+            params.put("node_url", node_url);
+            params.put("address", address);
+            if (TextUtils.isEmpty(contract_addr) && !contract_addr.equalsIgnoreCase(" ")) {
+                params.put("contract_addr", contract_addr);
+            }
+            String json = GsonUtil.toJson(params);
+            RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=utf-8"), json);
+            retrofit2.Call<WalletBalanceModel> call = apiService.requestETHBalance(body);
+            call.enqueue(new Callback<WalletBalanceModel>() {
+                @Override
+                public void onResponse(retrofit2.Call<WalletBalanceModel> call, Response<WalletBalanceModel> response) {
+                    if (net.sourceforge.utils.TextUtils.isResponseSuccess(response.body())) {
+                        if (response.body().balance != null) {
+                            tv_count.setText(response.body().balance);
+                            tv_count_cny.setText("≈" + String.format("%.3f", currentWallet.balance_cny) + " CNY");
+                        }
+                    } else {
+                        // TODO
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(retrofit2.Call<WalletBalanceModel> call, Throwable t) {
+                @Override
+                public void onFailure(retrofit2.Call<WalletBalanceModel> call, Throwable t) {
 
+                }
+            });
+        } else if (chain_type.equalsIgnoreCase("FBC")) {
+            RetrofitClient.FBCBalanceService apiService = RetrofitClient.getInstance().createRetrofit().create(RetrofitClient.FBCBalanceService.class);
+            Map<String, String> params = new HashMap<>();
+
+            params.put("dapp_id", dapp_id);
+            params.put("node_url", node_url);
+            params.put("address", address);
+            if (TextUtils.isEmpty(contract_addr) && !contract_addr.equalsIgnoreCase(" ")) {
+                params.put("contract_addr", contract_addr);
             }
-        });
+            String json = GsonUtil.toJson(params);
+            RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=utf-8"), json);
+            retrofit2.Call<WalletBalanceModel> call = apiService.requestFBCBalance(body);
+            call.enqueue(new Callback<WalletBalanceModel>() {
+                @Override
+                public void onResponse(retrofit2.Call<WalletBalanceModel> call, Response<WalletBalanceModel> response) {
+                    if (net.sourceforge.utils.TextUtils.isResponseSuccess(response.body())) {
+                        if (response.body().balance != null) {
+                            tv_count.setText(response.body().balance);
+                            tv_count_cny.setText("≈" + String.format("%.3f", currentWallet.balance_cny) + " CNY");
+                        }
+                    } else {
+                        // TODO
+                    }
+                }
+
+                @Override
+                public void onFailure(retrofit2.Call<WalletBalanceModel> call, Throwable t) {
+
+                }
+            });
+        }
+
+
     }
 
     private void setData() {
@@ -182,9 +224,9 @@ public class FragmentWallet extends FragmentBase {
                 rl_home_asserts.setVisibility(View.GONE);
                 ll_assert.setVisibility(View.GONE);
 
-                //TODO 此处可用创建账号接口返回，写一个VidewModle 作共享使用，在 onChanged 回调中显示ui（地址）
-//                tv_address.setText("");
-                requestFBCBalance("", "", "", "");
+                List fbcNodeLists = PreferenceHelper.getInstance().getObject(PreferenceHelper.PreferenceKey.KEY_FBC_NODE_LIST, List.class);
+                NodeModel nodeModelResponse = (NodeModel) fbcNodeLists.get(0);
+                requestBalance("FBC", Constants.DAPP_ID,nodeModelResponse.node_url, currentWallet.address, " ");
             }
             break;
             case ETH:
@@ -193,9 +235,14 @@ public class FragmentWallet extends FragmentBase {
                 rl_home_features.setVisibility(View.GONE);
                 rl_home_asserts.setVisibility(View.VISIBLE);
                 ll_assert.setVisibility(View.VISIBLE);
+                List fbcNodeLists = PreferenceHelper.getInstance().getObject(PreferenceHelper.PreferenceKey.KEY_ETH_NODE_LIST, List.class);
+                NodeModel nodeModelResponse = (NodeModel) fbcNodeLists.get(0);
+                requestBalance("ETH", Constants.DAPP_ID,nodeModelResponse.node_url, currentWallet.address, " ");
             }
             break;
         }
+        tv_username.setText(currentWallet.walletId);
+        tv_address.setText(currentWallet.address);
 /*        currentWallet = WalletManager.getInstance().getCurrentWallet();
         if (currentWallet != null) {
             switch (currentWallet.walletType) {
@@ -449,10 +496,30 @@ public class FragmentWallet extends FragmentBase {
             public void onChanged(@Nullable List<NodeModel> models) {
                 if (models != null && models.size() >0) {
                     SWLog.d(TAG(), "models in fragment size:" + models.size());
+
                 }
             }
         });
-        SWLog.d(TAG(), "models in fragment getNodelist:" + (walletViewModel.getNodeList() == null?"000":walletViewModel.getNodeList().size()));
+        walletViewModel.getFBCNodeModelResponse().observe(getActivity(), new Observer<List<NodeModel>>() {
+            @Override
+            public void onChanged(@Nullable List<NodeModel> models) {
+                if (models != null && models.size() >0) {
+                    SWLog.d(TAG(), "models in fragment size:" + models.size());
+                }
+            }
+        });
+        walletViewModel.getETHNodeModelResponse().observe(getActivity(), new Observer<List<NodeModel>>() {
+            @Override
+            public void onChanged(@Nullable List<NodeModel> models) {
+                if (models != null && models.size() >0) {
+                    SWLog.d(TAG(), "models in fragment size:" + models.size());
+                }
+            }
+        });
+//        SWLog.d(TAG(), "models in fragment getNodelist:" + (walletViewModel.getNodeList() == null?"000":walletViewModel.getNodeList().size()));
+        walletViewModel.requestNodeList("ETH", "dev");
+        walletViewModel.requestNodeList("FBC", "dev");
+        setData();
     }
 
     @OnClick(R.id.bt_switch_wallet)

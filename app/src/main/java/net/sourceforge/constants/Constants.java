@@ -5,7 +5,9 @@ public class Constants {
 
 	
 	public static final String fileDir = "SPDT";// app sd卡缓存目录
-	
+
+	public static final String DAPP_ID = "SPDT";// dapp_id 客户端唯一标识
+
 	public static final String sys_name = "camera";
 
 	public static final String SYSTEM_TYPE = "Android";

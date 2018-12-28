@@ -14,10 +14,20 @@ import com.viewpagerindicator.CirclePageIndicator;
 import net.sourceforge.UI.fragments.FragmentWelcome;
 import net.sourceforge.base.ActivityBase;
 import net.sourceforge.commons.log.SWLog;
+import net.sourceforge.constants.Constants;
+import net.sourceforge.http.engine.RetrofitClient;
+import net.sourceforge.http.model.NodeModel;
 import net.sourceforge.http.model.WalletModel;
+import net.sourceforge.utils.GsonUtil;
 import net.sourceforge.utils.PreferenceHelper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import okhttp3.RequestBody;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by terry.c on 06/03/2018.
@@ -66,6 +76,59 @@ public class ActivitySplash extends ActivityBase {
 
         mIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
         mIndicator.setViewPager(mPager);
+        requestNodeList("ETH","dev");
+        requestNodeList("FBC","dev");
+    }
+
+    public void requestNodeList(String chainType, String nodeNet) {
+        if (chainType.equalsIgnoreCase("ETH")) {
+            RetrofitClient.ETHNodeListService apiService = RetrofitClient.getInstance().createRetrofit().create(RetrofitClient.ETHNodeListService.class);
+            Map<String, String> params = new HashMap<>();
+
+            params.put("dapp_id", Constants.DAPP_ID);
+            params.put("node_net", nodeNet);
+            String json = GsonUtil.toJson(params);
+            RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=utf-8"), json);
+            retrofit2.Call<NodeModel.NodeModelResponse> call = apiService.requestNodeList(body);
+            call.enqueue(new Callback<NodeModel.NodeModelResponse>() {
+                @Override
+                public void onResponse(retrofit2.Call<NodeModel.NodeModelResponse> call, Response<NodeModel.NodeModelResponse> response) {
+                    if (net.sourceforge.utils.TextUtils.isResponseSuccess(response.body())) {
+                        PreferenceHelper.getInstance().setObject(PreferenceHelper.PreferenceKey.KEY_ETH_NODE_LIST, response.body().dev_net);
+                    } else {
+                    }
+                }
+
+                @Override
+                public void onFailure(retrofit2.Call<NodeModel.NodeModelResponse> call, Throwable t) {
+
+                }
+            });
+        } else if (chainType.equalsIgnoreCase("FBC")) {
+            RetrofitClient.APIService apiService = RetrofitClient.getInstance().createRetrofit().create(RetrofitClient.APIService.class);
+            Map<String, String> params = new HashMap<>();
+
+            params.put("dapp_id", Constants.DAPP_ID);
+            params.put("node_net", nodeNet);
+            String json = GsonUtil.toJson(params);
+            RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=utf-8"), json);
+            retrofit2.Call<NodeModel.NodeModelResponse> call = apiService.requestNodeList(body);
+            call.enqueue(new Callback<NodeModel.NodeModelResponse>() {
+                @Override
+                public void onResponse(retrofit2.Call<NodeModel.NodeModelResponse> call, Response<NodeModel.NodeModelResponse> response) {
+                    if (net.sourceforge.utils.TextUtils.isResponseSuccess(response.body())) {
+                        PreferenceHelper.getInstance().setObject(PreferenceHelper.PreferenceKey.KEY_FBC_NODE_LIST, response.body().dev_net);
+                    } else {
+
+                    }
+                }
+
+                @Override
+                public void onFailure(retrofit2.Call<NodeModel.NodeModelResponse> call, Throwable t) {
+
+                }
+            });
+        }
     }
 
     public void enterMain() {

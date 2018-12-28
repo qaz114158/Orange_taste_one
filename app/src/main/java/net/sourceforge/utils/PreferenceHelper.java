@@ -281,6 +281,10 @@ public class PreferenceHelper {
 
         public static final String KEY_NODE_LIST = "KEY_NODE_LIST";
 
+        public static final String KEY_FBC_NODE_LIST = "KEY_FBC_NODE_LIST";
+
+        public static final String KEY_ETH_NODE_LIST = "KEY_ETH_NODE_LIST";
+
         public PreferenceKey() {
         }
     }

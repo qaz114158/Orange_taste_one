@@ -160,7 +160,7 @@
                             android:textSize="30sp"
                             android:textColor="#e1b631"
                             android:layout_gravity="center_horizontal"
-                            android:text="629,502.1200"
+                            android:text="0"
                             android:shadowColor="#ff000000"
                             android:shadowDx="7"
                             android:shadowDy="10"

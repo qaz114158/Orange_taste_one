@@ -181,6 +181,24 @@ public class ActivityMain extends ActivityBase {
                 }
             }
         });
+        walletViewModel.getFBCNodeModelResponse().observe(this, new Observer<List<NodeModel>>() {
+            @Override
+            public void onChanged(@Nullable List<NodeModel> nodeModelResponses) {
+                if (nodeModelResponses != null && nodeModelResponses.size() >0) {
+//                    WalletManager.getInstance().addNodeList(nodeModelResponses);
+                    PreferenceHelper.getInstance().setObject(PreferenceHelper.PreferenceKey.KEY_FBC_NODE_LIST, nodeModelResponses);
+                }
+            }
+        });
+        walletViewModel.getETHNodeModelResponse().observe(this, new Observer<List<NodeModel>>() {
+            @Override
+            public void onChanged(@Nullable List<NodeModel> nodeModelResponses) {
+                if (nodeModelResponses != null && nodeModelResponses.size() >0) {
+//                    WalletManager.getInstance().addNodeList(nodeModelResponses);
+                    PreferenceHelper.getInstance().setObject(PreferenceHelper.PreferenceKey.KEY_ETH_NODE_LIST, nodeModelResponses);
+                }
+            }
+        });
         walletViewModel.requestNodeList("ETH", "dev");
         walletViewModel.requestNodeList("FBC", "dev");
     }

@@ -20,6 +20,8 @@ public class NodeModel implements Serializable {
     public static class NodeModelResponse extends BaseResponse implements Serializable{
 
         public List<NodeModel> dev_net;
+        public List<NodeModel> test_net;
+        public List<NodeModel> main_net;
 
     }
 
