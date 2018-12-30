@@ -4,4 +4,6 @@
     <string name="st_text1">钱包</string>
     <string name="st_text2">交易</string>
     <string name="st_text3">我的</string>
+
+    <string name="st_available_balance">可用余额  %1$s(SPD)</string>
 </resources>

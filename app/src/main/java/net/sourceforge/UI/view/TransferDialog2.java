@@ -8,8 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 
 import com.chain.wallet.spd.R;
+
+import net.sourceforge.UI.activity.ActivityDetail;
+import net.sourceforge.http.model.WalletModel;
+import net.sourceforge.manager.JumpMethod;
+import net.sourceforge.manager.WalletManager;
+import net.sourceforge.utils.DMG;
 
 public class TransferDialog2 extends Dialog implements View.OnClickListener{
 
@@ -18,6 +25,7 @@ public class TransferDialog2 extends Dialog implements View.OnClickListener{
     private CheckBox cb_aggrement;
 
     private Button bt_continue;
+    private EditText et_password;
 
     public TransferDialog2(Context context, IOnProtocolDialogClickListener iOnProtocolDialogClickListener) {
         super(context, com.terry.tcdialoglibrary.R.style.CommonDialog);
@@ -52,6 +60,8 @@ public class TransferDialog2 extends Dialog implements View.OnClickListener{
         btn_cancel.setOnClickListener(this);
         Button btn_confirm = findViewById(R.id.btn_confirm);
         btn_confirm.setOnClickListener(this);
+
+        et_password = findViewById(R.id.et_password);
     }
 
     @Override
@@ -61,7 +71,12 @@ public class TransferDialog2 extends Dialog implements View.OnClickListener{
             {
                 {
                     if (iOnProtocolDialogClickListener != null) {
-                        iOnProtocolDialogClickListener.onClickBtn(true);
+                        WalletModel walletModel = WalletManager.getInstance().getCurrentWallet();
+                        if (walletModel.walletPassowrd.equals(et_password.getText().toString().trim())) {
+                            iOnProtocolDialogClickListener.onClickBtn(true);
+                        } else {
+                            DMG.showNomalShortToast("密码错误，请重新输入");
+                        }
                     }
                 }
             }

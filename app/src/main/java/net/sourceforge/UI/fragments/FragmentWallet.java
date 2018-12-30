@@ -367,6 +367,7 @@ public class FragmentWallet extends FragmentBase {
     @Override
     public void onResume() {
         super.onResume();
+        setData();
     }
 
     @Override
@@ -383,7 +384,7 @@ public class FragmentWallet extends FragmentBase {
         if (!hidden) {
             SWLog.d(TAG, "call onHiddenChanged():" + hidden);
             //todo
-
+            setData();
         }
     }
 
@@ -519,7 +520,6 @@ public class FragmentWallet extends FragmentBase {
 //        SWLog.d(TAG(), "models in fragment getNodelist:" + (walletViewModel.getNodeList() == null?"000":walletViewModel.getNodeList().size()));
         walletViewModel.requestNodeList("ETH", "dev");
         walletViewModel.requestNodeList("FBC", "dev");
-        setData();
     }
 
     @OnClick(R.id.bt_switch_wallet)

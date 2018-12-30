@@ -160,7 +160,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="可用余额  6297，502.12(SPD)"
+                android:text="@string/st_available_balance"
                 android:textSize="12sp"
                 android:textColor="#bfbfbf"
                 android:gravity="right"

@@ -5,6 +5,8 @@ import net.sourceforge.http.model.BaseResponse;
 import net.sourceforge.http.model.NodeModel;
 import net.sourceforge.http.model.UserInfo;
 import net.sourceforge.http.model.WalletBalanceModel;
+import net.sourceforge.http.model.WalletNonceModel;
+import net.sourceforge.http.model.WalletTransferModel;
 import net.sourceforge.http.url.URLBuilder;
 import net.sourceforge.utils.TextUtils;
 
@@ -157,6 +159,58 @@ public class RetrofitClient {
         @Headers({"Content-Type:application/x-www-form-urlencoded"})
         @POST("eth/pbqbe.do")
         Call<WalletBalanceModel> requestETHBalance(@Body RequestBody map);
+
+    }
+
+    public interface FBCNonceService {
+
+        /**
+         * 获取FBC Nonce
+         * @param map
+         * @return
+         */
+        @Headers({"Content-Type:application/x-www-form-urlencoded"})
+        @POST("fbc/pbqne.do")
+        Call<WalletNonceModel> requestFBCNonce(@Body RequestBody map);
+
+    }
+
+    public interface ETHNonceService {
+
+        /**
+         * 获取ETH Nonce
+         * @param map
+         * @return
+         */
+        @Headers({"Content-Type:application/x-www-form-urlencoded"})
+        @POST("eth/pbqne.do")
+        Call<WalletNonceModel> requestETHNonce(@Body RequestBody map);
+
+    }
+
+    public interface FBCTransferService {
+
+        /**
+         * FBC 冷 主币转账
+         * @param map
+         * @return
+         */
+        @Headers({"Content-Type:application/x-www-form-urlencoded"})
+        @POST("fbc/pbtxe.do")
+        Call<WalletTransferModel> requestFBCTransfer(@Body RequestBody map);
+
+    }
+
+    public interface ETHTransferService {
+
+        /**
+         * ETH 冷 主币转账
+         * @param map
+         * @return
+         */
+        @Headers({"Content-Type:application/x-www-form-urlencoded"})
+        @POST("eth/pbtxe.do")
+        Call<WalletTransferModel> requestETHTransfer(@Body RequestBody map);
 
     }
 }
