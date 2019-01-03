@@ -16,17 +16,24 @@ import net.sourceforge.UI.view.BussnessBuyDialog;
 import net.sourceforge.UI.view.BussnessSellDialog;
 import net.sourceforge.base.FragmentBase;
 import net.sourceforge.commons.log.SWLog;
+import net.sourceforge.http.engine.RetrofitClientOTC;
 import net.sourceforge.http.model.BussnessModel;
 import net.sourceforge.utils.DMG;
+import net.sourceforge.utils.GsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import okhttp3.RequestBody;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by terry.c on 06/03/2018.
@@ -46,6 +53,8 @@ public class FragmentBussnessSell extends FragmentBase {
     private BussnessSellAdapter adapter;
 
     private BussnessSellDialog dialog;
+
+    boolean isFirst = true;
 
     public static FragmentBussnessSell newInstance() {
         FragmentBussnessSell f = new FragmentBussnessSell();
@@ -120,6 +129,29 @@ public class FragmentBussnessSell extends FragmentBase {
         }
     }
 
+    private void loadData() {
+        RetrofitClientOTC.SellListService apiService = RetrofitClientOTC.getInstance().createRetrofit().create(RetrofitClientOTC.SellListService.class);
+        Map<String, String> params = new HashMap<>();
+
+        params.put("pageNum", "1");
+        params.put("pageSize", "10");
+        params.put("type", "2");
+        String json = GsonUtil.toJson(params);
+        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=utf-8"), json);
+        retrofit2.Call<BussnessModel> call = apiService.requestShellList(body);
+        call.enqueue(new Callback<BussnessModel>() {
+            @Override
+            public void onResponse(retrofit2.Call<BussnessModel> call, Response<BussnessModel> response) {
+                SWLog.d(TAG(), "onResponse()");
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<BussnessModel> call, Throwable t) {
+
+            }
+        });
+    }
+
     private void showDialog() {
         dialog = new BussnessSellDialog(getActivity(), new BussnessSellDialog.IOnProtocolDialogClickListener() {
             @Override
@@ -133,4 +165,13 @@ public class FragmentBussnessSell extends FragmentBase {
         dialog.show();
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        SWLog.d(TAG, "call setUserVisibleHint()");
+        if (isVisibleToUser && isFirst) {
+            loadData();
+            isFirst = false;
+        }
+    }
 }

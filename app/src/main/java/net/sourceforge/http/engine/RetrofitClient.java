@@ -82,6 +82,37 @@ public class RetrofitClient {
         return mRetrofit;
     }
 
+    public Retrofit createRetrofit(String baseUrl) {
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+                @Override
+                public void log(String message) {
+                    //打印retrofit日志
+                    try {
+                        SWLog.d("RetrofitClient retrofitBack = ", TextUtils.unicodeToUtf8(message));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+            OkHttpClient client = new OkHttpClient.Builder()
+//                    .cache(cache)
+                    .addInterceptor(loggingInterceptor)
+                    .connectTimeout(mTimeOut, TimeUnit.SECONDS)
+                    .readTimeout(mTimeOut, TimeUnit.SECONDS)
+                    .writeTimeout(mTimeOut, TimeUnit.SECONDS)
+                    .build();
+
+
+            Retrofit mRetrofit = new Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .client(client)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        return mRetrofit;
+    }
+
     public interface APIService {
 
         /**

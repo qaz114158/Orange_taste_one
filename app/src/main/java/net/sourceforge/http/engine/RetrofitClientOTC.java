@@ -1,8 +1,8 @@
 package net.sourceforge.http.engine;
 
 import net.sourceforge.commons.log.SWLog;
+import net.sourceforge.http.model.BussnessModel;
 import net.sourceforge.http.model.NodeModel;
-import net.sourceforge.http.url.URLBuilder;
 import net.sourceforge.utils.TextUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -80,8 +80,33 @@ public class RetrofitClientOTC {
         @POST("mer/pbadv.do")
         Call<NodeModel.NodeModelResponse> requestBuyList(@Body RequestBody map);
 
-       
 
+
+    }
+
+    public interface BuyListService {
+
+        /**
+         * 买列表 http://39.96.70.16:7085/otc/mer/pbmai.do
+         * @param map
+         * @return
+         */
+        @Headers({"Content-Type:application/x-www-form-urlencoded"})
+        @POST("mer/pbmai.do")
+        Call<BussnessModel> requestBuyList(@Body RequestBody map);
+
+    }
+
+    public interface SellListService {
+
+        /**
+         * 卖列表 http://39.96.70.16:7085/otc/mer/pbadv.do
+         * @param map
+         * @return
+         */
+        @Headers("Content-Type:application/x-www-form-urlencoded")
+        @POST("mer/pbadv.do")
+        Call<BussnessModel> requestShellList(@Body RequestBody map);
     }
 
 }

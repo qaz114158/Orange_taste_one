@@ -57,6 +57,8 @@ public class FragmentBussnessBuy extends FragmentBase {
 
     private BussnessBuyDialog dialog;
 
+    boolean isFirst = true;
+
     public static FragmentBussnessBuy newInstance() {
         FragmentBussnessBuy f = new FragmentBussnessBuy();
         return f;
@@ -105,7 +107,6 @@ public class FragmentBussnessBuy extends FragmentBase {
                 }
             }
         });
-        loadData();
     }
 
     @Override
@@ -146,25 +147,34 @@ public class FragmentBussnessBuy extends FragmentBase {
     }
 
     public void loadData() {
-        RetrofitClientOTC.APIService apiService = RetrofitClientOTC.getInstance().createRetrofit().create(RetrofitClientOTC.APIService.class);
+        RetrofitClientOTC.BuyListService apiService = RetrofitClientOTC.getInstance().createRetrofit().create(RetrofitClientOTC.BuyListService.class);
         Map<String, String> params = new HashMap<>();
 
-        params.put("pageNum", "1");
+        params.put("pageNum", "0");
         params.put("pageSize", "10");
+        params.put("type", "1");
         String json = GsonUtil.toJson(params);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=utf-8"), json);
-        retrofit2.Call<NodeModel.NodeModelResponse> call = apiService.requestBuyList(body);
-        call.enqueue(new Callback<NodeModel.NodeModelResponse>() {
+        retrofit2.Call<BussnessModel> call = apiService.requestBuyList(body);
+        call.enqueue(new Callback<BussnessModel>() {
             @Override
-            public void onResponse(retrofit2.Call<NodeModel.NodeModelResponse> call, Response<NodeModel.NodeModelResponse> response) {
+            public void onResponse(retrofit2.Call<BussnessModel> call, Response<BussnessModel> response) {
                 SWLog.d(TAG(), "onResponse()");
             }
 
             @Override
-            public void onFailure(retrofit2.Call<NodeModel.NodeModelResponse> call, Throwable t) {
+            public void onFailure(retrofit2.Call<BussnessModel> call, Throwable t) {
 
             }
         });
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && isFirst) {
+            loadData();
+            isFirst = false;
+        }
+    }
 }

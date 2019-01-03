@@ -86,7 +86,7 @@ public class FragmentBussiness extends FragmentBase {
         mDataList.add("交易订单");
 
         mViewPager = curView.findViewById(R.id.view_pager);
-        mViewPager.setOffscreenPageLimit(0);
+        mViewPager.setOffscreenPageLimit(2);
         mViewPager.setAdapter(newsAdapter = new NewsAdapter(getChildFragmentManager()));
 
         MagicIndicator magicIndicator = (MagicIndicator) curView.findViewById(R.id.magic_indicator);
